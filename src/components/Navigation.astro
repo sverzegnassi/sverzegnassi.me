@@ -185,15 +185,15 @@ const { "x-data": xData } = Astro.props
   }
 
   .navbar-links-wrapper {
-    z-index: 100;
     display: block;
     position: absolute;
+    z-index: 100;
+    
     top: 4rem;
     left: 100dvw;
     right: 0;
     width: 0;
     height: 0;
-    padding: 4rem;
 
     background-color: var(--color-neutral-100);
 
@@ -219,8 +219,9 @@ const { "x-data": xData } = Astro.props
     top: 4rem;
     left: 0;
     width: calc(100vw + 1px);
-    border-radius: 0;
     height: 100dvh;
+    padding: 4rem;
+    border-radius: 0;
 
     visibility:visible;
 
