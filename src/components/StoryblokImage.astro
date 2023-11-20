@@ -4,11 +4,11 @@ interface Props {
     alt: string;
     caption?: string;
 
-    lazyload?: bool;
+    lazyload?: boolean;
 }
 
 // Ref. https://www.storyblok.com/faq/image-dimensions-assets-js
-function imageDimensions(url) {
+function imageDimensions(url: string) {
   return {
     width: url.split("/")[5].split("x")[0],
     height: url.split("/")[5].split("x")[1],

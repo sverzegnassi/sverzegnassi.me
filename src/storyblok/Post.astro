@@ -37,7 +37,7 @@ console.log(renderedRichText);
 
     if (proseElement) {
       var anchorElements = proseElement.querySelectorAll("a");
-      anchorElements.forEach(function (anchor, index) {
+      anchorElements.forEach(function (anchor) {
         var href = anchor.href;
 
         if (href.startsWith("http://") || href.startsWith("https://")) {
