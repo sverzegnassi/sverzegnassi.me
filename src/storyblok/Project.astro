@@ -33,7 +33,7 @@ const renderedRichText = renderRichText(blok.content);
     <div class="prose" set:html={renderedRichText} />
 
     <div class="multimedia">
-      {blok.multimedia.map((img) => <img loading="lazy" alt={img.alt} src={img.filename} />)}
+      {blok.multimedia.map((img: any) => <img loading="lazy" alt={img.alt} src={img.filename} />)}
     </div>
   </div>
 </div>
