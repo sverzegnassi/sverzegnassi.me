@@ -16,7 +16,14 @@ const renderedRichText = renderRichText(blok.content);
      -->
     <div class="header-wrapper">
       <div class="card">
-        <ArticleCard className="" mainHeader={true} title={blok.title} description={blok.description} />
+        <ArticleCard 
+          mainHeader={true}
+          title={blok.title}
+          description={blok.description}
+          linkHref={blok.urls[0]?.link.url}
+          linkText={blok.urls[0]?.title}
+          isLinkExternal=true
+        />
       </div>
       {
         blok.cover_image.filename && (

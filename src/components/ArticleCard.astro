@@ -1,5 +1,6 @@
 ---
 import { withWebpSupport } from "../utils/storyblokUtils";
+import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 
 interface Props {
   className?: string;
@@ -12,11 +13,12 @@ interface Props {
 
   linkHref?: string;
   linkText?: string;
+  isLinkExternal?: string;
 
   mainHeader?: boolean;
 }
 
-const { className, coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "Read more", mainHeader } = Astro.props;
+const { className, coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "Read more", isLinkExternal, mainHeader } = Astro.props;
 ---
 
 <div class:list={["card", className]} x-data=" { hover: false }">
@@ -35,15 +37,27 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
 
     {
       linkHref && (
-        <a
-        class="link"
-          href={linkHref}
-          @mouseover="hover = true"
-          @mouseout="hover = false"
-          aria-label={linkText + " about " + title}
-        >
-          {linkText}
-        </a>
+        isLinkExternal
+          ? <a
+            class="link"
+            href={linkHref}
+            rel="noopener nofollow"
+            target="_blank"
+            aria-label={`${linkText} (external link: opens in a new window)`}
+          >
+            {linkText}
+            <ExternalLinkIcon />
+          </a> 
+
+          : <a
+            class="link"
+            href={linkHref}
+            @mouseover="hover = true"
+            @mouseout="hover = false"
+            aria-label={linkText + " about " + title}
+          >
+            {linkText}
+          </a>
       )
     }
 </div>

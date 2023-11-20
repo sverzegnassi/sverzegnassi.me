@@ -28,7 +28,7 @@ const { slug } = Astro.params;
 
 const { data } = await sbApi.get(`cdn/stories/${slug === undefined ? "home" : slug}`, {
   version: import.meta.env.DEV ? "draft" : "published",
-  resolve_relations: ["featuredFromCollection.items", "project.technologies"],
+  resolve_relations: ["featuredFromCollection.items", "project.technologies", "urls.link"],
 });
 
 const story = data.story;
