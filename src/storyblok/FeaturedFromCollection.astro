@@ -1,0 +1,15 @@
+---
+const { blok } = Astro.props;
+
+import { storyblokEditable } from "@storyblok/astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import ArticleCardGrid from "../components/ArticleCardGrid.astro";
+---
+
+<section class="not-prose" {...storyblokEditable(blok)}>
+  <div class="full-width">
+    {blok.title && <SectionHeader title={blok.title} subtitle={blok.subtitle} />}
+
+    <ArticleCardGrid entriesList={blok.items} linkTextDefault={blok.link_text} />
+  </div>
+</section>

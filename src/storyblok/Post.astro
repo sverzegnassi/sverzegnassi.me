@@ -1,0 +1,28 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import BackToHomePage from "../components/BackToHomePage.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+
+const { blok } = Astro.props;
+const renderedRichText = renderRichText(blok.content);
+---
+
+<article class="section" {...storyblokEditable(blok)}>
+  <header class="full-width">
+    <BackToHomePage text="Return to the home page" href="/" />
+    <div class="header-wrapper">
+      <div class="header-card">
+        <ArticleCard className="" mainHeader={true} title={blok.title} description={"Published " + blok.date} />
+      </div>
+    </div>
+  </header>
+
+  <div class="prose" set:html={renderedRichText} />
+</article>
+
+<style>
+  .prose {
+    padding-top: 4rem;
+    max-width: 70ch;
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<header>
+  <h2>{title}</h2>
+  {subtitle && <p>{subtitle}</p>}
+</header>
+
+<style>
+  header {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    text-align: center;
+
+    & > h2 {
+      font-size: 5.202rem;
+      letter-spacing: -0.05em;
+      line-height: 3.247rem;
+      margin-bottom: 2rem;
+      color: var(--color-neutral-100);
+      text-shadow:
+        var(--color-neutral-500) 1px 0px 0px,
+        var(--color-neutral-500) 0.540302px 0.841471px 0px,
+        var(--color-neutral-500) -0.416147px 0.909297px 0px,
+        var(--color-neutral-500) -0.989993px 0.14112px 0px,
+        var(--color-neutral-500) -0.653644px -0.756803px 0px,
+        var(--color-neutral-500) 0.283662px -0.958924px 0px,
+        var(--color-neutral-500) 0.96017px -0.279416px 0px;
+    }
+    & > p {
+      color: var(--color-neutral-800);
+    }
+  }
+</style>

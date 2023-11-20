@@ -1,0 +1,102 @@
+---
+import { withWebpSupport } from "../utils/storyblokUtils";
+
+interface Props {
+  className?: string;
+
+  coverImageUrl?: string;
+  coverImageAlt?: string;
+
+  title: string;
+  description?: string;
+
+  linkHref?: string;
+  linkText?: string;
+
+  mainHeader?: boolean;
+}
+
+const { className, coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "Read more", mainHeader } = Astro.props;
+---
+
+<div class:list={["card", className]} transition:persist transition:name={`card-${title}`} x-data=" { hover: false }">
+  {
+    coverImageUrl && (
+      <div class="img-wrapper" :class="hover ? 'highlighted' : ''">
+        <img src={withWebpSupport(coverImageUrl)} alt={coverImageAlt} loading="lazy" />
+      </div>
+    )
+  }
+
+    <div class="el">
+      {mainHeader ? <h1>{title}</h1> : <h3>{title}</h3>}
+      {description && <p class="text-small">{description}</p>}
+    </div>
+
+    {
+      linkHref && (
+        <a
+        class="link"
+          href={linkHref}
+          @mouseover="hover = true"
+          @mouseout="hover = false"
+        >
+          {linkText}
+        </a>
+      )
+    }
+</div>
+
+<style>
+  .card {
+    background-color: var(--color-neutral-200);
+    min-height: 40vh;
+    height: 100%;
+
+    grid-row: auto / span 3;
+
+    display: grid;
+    grid-template-rows: subgrid;
+
+    .el {
+      grid-row: 2 / 3;
+      padding: 1rem;
+
+      & > p {
+        color: var(--color-neutral-800);
+      }
+    }
+
+    .link {
+      grid-row: 3 / 4;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .img-wrapper {
+      grid-row: 1 / 2;
+      overflow: hidden;
+      height: 14rem;
+
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+      transition-duration: 50ms;
+
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+        transition-duration: 125ms;
+      }
+    }
+
+  }
+
+  .img-wrapper.highlighted > img {
+    scale: 1.25;
+    transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
+  }
+</style>

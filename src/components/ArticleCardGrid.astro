@@ -1,0 +1,56 @@
+---
+import ArticleCard from "./ArticleCard.astro";
+interface Props {
+  entriesList: {
+    content: {
+      cover_image: { filename: string | undefined; alt: string | undefined };
+      title: string;
+      description: string | undefined;
+    };
+    full_slug: string | undefined;
+  }[];
+
+  linkTextDefault: string;
+}
+
+const { entriesList, linkTextDefault } = Astro.props;
+---
+
+<div class="collection-grid">
+  {
+    entriesList.map((entry) => (
+      <ArticleCard
+        coverImageUrl={entry.content?.cover_image?.filename}
+        coverImageAlt={entry.content?.cover_image?.alt}
+        title={entry.content?.title}
+        description={entry.content?.description}
+        linkHref={entry.full_slug}
+        linkText={linkTextDefault}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .collection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    min-height: 43vh;
+
+    /* Values from Webflow */
+    /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
+    @media (width < 991px) {
+      & {
+        grid-template-columns: 1fr 1fr;
+        row-gap: .5rem;
+      }
+    }
+    
+    @media (width < 478px) {
+      & {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+</style>

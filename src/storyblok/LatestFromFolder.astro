@@ -1,0 +1,32 @@
+---
+const { blok } = Astro.props;
+
+import { storyblokEditable } from "@storyblok/astro";
+import { useStoryblokApi } from "@storyblok/astro";
+
+import SectionHeader from "../components/SectionHeader.astro";
+import ArticleCardGrid from "../components/ArticleCardGrid.astro";
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get(`cdn/stories/`, {
+  version: import.meta.env.DEV ? "draft" : "published",
+  per_page: blok.max_count,
+  excluding_ids: blok.excluding_ids,
+  excluding_slugs: blok.exluding_slugs,
+  by_slugs: blok.by_slugs,
+  by_uuids: blok.by_uuids,
+  starts_with: blok.starts_with,
+  is_startpage: !blok.exclude_startpage,
+});
+
+const entries = data.stories;
+---
+
+<section class="not-prose" {...storyblokEditable(blok)}>
+  <div class="full-width">
+    {blok.title && <SectionHeader title={blok.title} subtitle={blok.subtitle} />}
+
+    <ArticleCardGrid entriesList={entries} linkTextDefault={blok.link_text} />
+  </div>
+</section>
+

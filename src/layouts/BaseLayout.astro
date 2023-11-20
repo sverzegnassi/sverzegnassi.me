@@ -1,0 +1,45 @@
+---
+import "modern-normalize";
+import "@fontsource-variable/public-sans";
+import "../css/global.css";
+
+import { useStoryblokApi } from "@storyblok/astro";
+
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Navigation from "../components/Navigation.astro";
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get("cdn/stories/config", {
+  version: "draft",
+  resolve_links: "url",
+});
+
+const title = data?.story?.content?.site_title;
+const description = data?.story?.content?.site_description;
+
+const { story } = Astro.props;
+
+const coverImage = story.content?.cover_image?.filename;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <BaseHead
+      title={story ? story.name + " — " + title : title}
+      description={story ? story.description : description}
+      image={coverImage}
+    />
+  </head>
+  <body x-data="{ navbarOpen: false }" :style="navbarOpen && 'overflow: hidden;'">
+    <Navigation />
+    <main :style="navbarOpen && 'visibility: hidden'">
+      <slot />
+    </main>
+    <div :style="navbarOpen && 'visibility: hidden'">
+      <Footer />
+    </div>
+  </body>
+</html>

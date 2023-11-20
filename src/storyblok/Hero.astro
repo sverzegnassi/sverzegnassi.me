@@ -1,0 +1,43 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)}>
+  <div class="full-width hero hero-content">
+    <div class="hash"></div>
+    <h1 class="hero-title">{blok.title}</h1>
+    <p class="tag">{blok.tagline}</p>
+  </div>
+</section>
+
+<style>
+  section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+
+    text-align: center;
+  }
+
+  .hash {
+    margin-bottom: -1rem;
+
+    &::before {
+      content: "#";
+      color: var(--color-neutral-300);
+      font-size: 4rem;
+      font-weight: 700;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  gsap.from(".hash", {opacity: 0, duration: 3 })
+
+  var tl = gsap.timeline({ repeat: 0 });
+  tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 0.5});
+  tl.from(".tag", { opacity: 0, translateY: 50, duration: 1 });
+</script>

@@ -1,0 +1,28 @@
+---
+import { withWebpSupport } from '../utils/storyblokUtils.js';
+
+interface Props {
+  name: string;
+  image?: string;
+}
+
+const { name, image } = Astro.props;
+---
+
+<div class="tech-badge">
+  <!-- {image && <img
+  src={withWebpSupport(image)}
+  alt={`Logo of ${name}`}
+  /> }  -->
+  <span class="text-small">{name}</span>
+</div>
+
+<style>
+  .tech-badge {
+    background-color: var(--color-neutral-200);
+    border-radius: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-shrink: 0;
+  }
+</style>
