@@ -2,7 +2,7 @@
 import { storyblokEditable, renderRichText } from "@storyblok/astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import BackToHomePage from "../components/BackToHomePage.astro";
-import { withWebpSupport } from "../utils/storyblokUtils";
+import { withWebpSupport, imageDimensions } from "../utils/storyblokUtils";
 import DetailsBox from "../components/DetailsBox.astro";
 
 const { blok } = Astro.props;
@@ -19,7 +19,7 @@ const renderedRichText = renderRichText(blok.content);
       {
         blok.cover_image.filename && (
           <div class="cover-image">
-            <img src={withWebpSupport(blok.cover_image.filename)} alt={blok.cover_image.alt} />
+            <img src={withWebpSupport(blok.cover_image.filename)} alt={blok.cover_image.alt} width={imageDimensions(blok.cover_image.filename).width} height={imageDimensions(blok.cover_image.filename).height}>
           </div>
         )
       }
@@ -33,7 +33,9 @@ const renderedRichText = renderRichText(blok.content);
     <div class="prose" set:html={renderedRichText} />
 
     <div class="multimedia">
-      {blok.multimedia.map((img: any) => <img loading="lazy" alt={img.alt} src={img.filename} />)}
+      {blok.multimedia.map((img: any) =>
+      <img loading="lazy" alt={img.alt} src={withWebpSupport(img.filename)} width={imageDimensions(img.filename).width} height={imageDimensions(img.filename).height}>
+      )}
     </div>
   </div>
 </div>
@@ -77,6 +79,7 @@ const renderedRichText = renderRichText(blok.content);
 
     & > img {
       width: 100%;
+      height: auto;
       border: 1px solid var(--color-neutral-200);
     }
   }
