@@ -10,11 +10,15 @@ export async function getStaticPaths() {
     version: import.meta.env.DEV ? "draft" : "published",
   });
 
-  const stories = Object.values(data.stories);
+  let stories = Object.values(data.stories);
+
+  stories = stories.filter(
+    (story: any) => !story.full_slug.startsWith("technologies-used/") && story.full_slug !== "config"
+  );
 
   return stories.map((story: any) => {
     return {
-      params: { slug: story.full_slug === 'home' ? undefined : story.full_slug, },
+      params: { slug: story.full_slug === "home" ? undefined : story.full_slug },
     };
   });
 }
@@ -22,15 +26,14 @@ export async function getStaticPaths() {
 const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
 
-const { data } = await sbApi.get(`cdn/stories/${slug === undefined ? 'home' : slug}`, {
+const { data } = await sbApi.get(`cdn/stories/${slug === undefined ? "home" : slug}`, {
   version: import.meta.env.DEV ? "draft" : "published",
-  resolve_relations: ['featuredFromCollection.items', 'project.technologies'],
+  resolve_relations: ["featuredFromCollection.items", "project.technologies"],
 });
 
 const story = data.story;
-
 ---
 
 <BaseLayout story={story}>
-    <StoryblokComponent blok={story.content} />
+  <StoryblokComponent blok={story.content} />
 </BaseLayout>
