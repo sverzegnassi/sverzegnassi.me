@@ -1,12 +1,10 @@
 ---
 import { storyblokEditable, renderRichText } from "@storyblok/astro";
-import BackToHomePage from "../components/BackToHomePage.astro";
+//import BackToHomePage from "../components/BackToHomePage.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 
 const { blok } = Astro.props;
 const renderedRichText = renderRichText(blok.content);
-
-console.log(renderedRichText);
 ---
 
 <article class="section" {...storyblokEditable(blok)}>
