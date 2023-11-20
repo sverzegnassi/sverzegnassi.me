@@ -26,6 +26,13 @@ const { title, subtitle } = Astro.props;
       color: var(--color-neutral-100);
 
       /*
+        WORKAROUND: Text is too large on the external screen of Galaxy Fold.
+        Clip it for now.
+      */
+      text-overflow: clip;
+      max-width: 100vw;
+
+      /*
         NOTE: This is marked as low contrast by WebAim's WAVE tools.
         It's probably because color and background color are the same,
         while we're using `text-shadow`.
