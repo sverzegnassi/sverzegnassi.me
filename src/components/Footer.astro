@@ -1,5 +1,5 @@
 ---
-import ExternalLinkIcon from "./ExternalLinkIcon.astro"
+import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 import { useStoryblokApi } from "@storyblok/astro";
 
 const today = new Date();
@@ -24,8 +24,8 @@ const footerLinks = data?.story?.content?.footer_links;
             href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1"
             target="_blank"
             rel="license nofollow noopener noreferrer"
-            aria-label="Read more about CC BY-NC 4.0 license"
-            >CC BY-NC 4.0<ExternalLinkIcon /></a>
+            aria-label="Read more about CC BY-NC 4.0 license">CC BY-NC 4.0<ExternalLinkIcon /></a
+          >
         </p>
       </div>
 
@@ -34,11 +34,19 @@ const footerLinks = data?.story?.content?.footer_links;
           footerLinks &&
             footerLinks.map((l: any) => (
               <li>
-                {
-                  l.link.linktype == 'url'
-                    ? <a href={`${l.link.url}`} rel="noopener nofollow" target="_blank" aria-label={l.title + "(external link: opens in a new window)"}>{l.title}<ExternalLinkIcon /></a>
-                    : <a href={`/${l.link.url}`}>{l.title}</a>
-                }
+                {l.link.linktype == "url" ? (
+                  <a
+                    href={`${l.link.url}`}
+                    rel="noopener nofollow"
+                    target="_blank"
+                    aria-label={l.title + "(external link: opens in a new window)"}
+                  >
+                    {l.title}
+                    <ExternalLinkIcon />
+                  </a>
+                ) : (
+                  <a href={`/${l.link.url}`}>{l.title}</a>
+                )}
               </li>
             ))
         }
@@ -50,18 +58,57 @@ const footerLinks = data?.story?.content?.footer_links;
     <div class="made-with--section">
       <p class="made-with">
         Website made with:
-        <a href="https://astro.build/" target="_blank" rel="noopener nofollow" aria-label="Astro (external link: opens in a new window)"
-          ><img class="logo" alt="Logo of Astro" src="/astro-logo-light-gradient.svg" width="460" height="160" loading="lazy"></a
+        <a
+          href="https://astro.build/"
+          target="_blank"
+          rel="noopener nofollow"
+          aria-label="Astro (external link: opens in a new window)"
+          ><img
+            class="logo"
+            alt="Logo of Astro"
+            src="/astro-logo-light-gradient.svg"
+            width="460"
+            height="160"
+            loading="lazy"
+          /></a
         >
-        <a href="https://storyblok.com/" target="_blank" rel="noopener nofollow"  aria-label="Storyblok (external link: opens in a new window)"
-          ><img class="logo" alt="Logo of Storyblok" src="/sb-logo-full-color-white.svg" width="251px" height="53px" loading="lazy"></a
+        <a
+          href="https://storyblok.com/"
+          target="_blank"
+          rel="noopener nofollow"
+          aria-label="Storyblok (external link: opens in a new window)"
+          ><img
+            class="logo"
+            alt="Logo of Storyblok"
+            src="/sb-logo-full-color-white.svg"
+            width="251px"
+            height="53px"
+            loading="lazy"
+          /></a
         >
-        <a href="https://www.netlify.com/" target="_blank" rel="noopener nofollow"  aria-label="Netlify (external link: opens in a new window)"
-          ><img class="logo" alt="Logo of Netlify" src="/logo-netlify-small-fullcolor-darkmode.svg" width="256" height="105" loading="lazy"></a
+        <a
+          href="https://www.netlify.com/"
+          target="_blank"
+          rel="noopener nofollow"
+          aria-label="Netlify (external link: opens in a new window)"
+          ><img
+            class="logo"
+            alt="Logo of Netlify"
+            src="/logo-netlify-small-fullcolor-darkmode.svg"
+            width="256"
+            height="105"
+            loading="lazy"
+          /></a
         >
       </p>
 
-      <a href="https://github.com/sverzegnassi/sverzegnassi.me" target="_blank" rel="noopener nofollow" aria-label="Check source code of this website on GitHub (external link: opens in a new window)">Source code on GitHub<ExternalLinkIcon /></a>
+      <a
+        href="https://github.com/sverzegnassi/sverzegnassi.me"
+        target="_blank"
+        rel="noopener nofollow"
+        aria-label="Check source code of this website on GitHub (external link: opens in a new window)"
+        >Source code on GitHub<ExternalLinkIcon /></a
+      >
     </div>
   </div>
 </footer>
