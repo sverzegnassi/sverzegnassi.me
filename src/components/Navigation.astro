@@ -1,5 +1,6 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
+import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get("cdn/stories/config", {
@@ -9,7 +10,7 @@ const { data } = await storyblokApi.get("cdn/stories/config", {
 
 const navbarLinks = data?.story?.content?.navbar_links;
 
-const { "x-data": xData } = Astro.props
+const { "x-data": xData } = Astro.props;
 ---
 
 <nav class="navbar" x-data={xData} :aria-expanded="navbarOpen" aria-label="Main navigation">
@@ -34,12 +35,29 @@ const { "x-data": xData } = Astro.props
       navbarLinks &&
         navbarLinks.map((l: any) => (
           <li>
-            <a href={`/${l.link.url}`}>{l.title}</a>
+            {l.link.linktype == "url" ? (
+              <a
+                href={`${l.link.url}`}
+                rel="noopener nofollow"
+                target="_blank"
+                aria-label={l.title + "(external link: opens in a new window)"}
+              >
+                {l.title}
+                <ExternalLinkIcon />
+              </a>
+            ) : (
+              <a href={`/${l.link.url}`}>{l.title}</a>
+            )}
           </li>
         ))
     }
   </ul>
-  <button class="navbar-button" @click="navbarOpen = !navbarOpen" :aria-expanded="navbarOpen" :aria-label="! navbarOpen ? 'Open Navigation Menu' : 'Close Navigation Menu'">
+  <button
+    class="navbar-button"
+    @click="navbarOpen = !navbarOpen"
+    :aria-expanded="navbarOpen"
+    :aria-label="! navbarOpen ? 'Open Navigation Menu' : 'Close Navigation Menu'"
+  >
     <span class="hamburger" :class="navbarOpen ? 'close-icon' : ''">
       <span class="hamburger-bar"></span>
       <span class="hamburger-bar"></span>
@@ -205,7 +223,7 @@ const { "x-data": xData } = Astro.props
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 333ms;
 
-    visibility:hidden;
+    visibility: hidden;
 
     & > li {
       display: none;
@@ -224,10 +242,10 @@ const { "x-data": xData } = Astro.props
     padding: 4rem;
     border-radius: 0;
 
-    visibility:visible;
+    visibility: visible;
 
     & > li {
-        display: block;
+      display: block;
     }
   }
 </style>
