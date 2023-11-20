@@ -1,28 +1,51 @@
 ---
-//import { withWebpSupport } from '../utils/storyblokUtils.js';
+import { imageDimensions } from "../utils/storyblokUtils.js";
 
 interface Props {
   name: string;
   image?: string;
 }
 
-const { name /*, image*/ } = Astro.props;
+const { name, image } = Astro.props;
 ---
 
 <div class="tech-badge">
-  <!-- {image && <img
-  src={withWebpSupport(image)}
-  alt={`Logo of ${name}`}
-  /> }  -->
+  {
+    image && (
+      <img
+        loading="lazy"
+        src={`${image}`}
+        alt={`Logo of ${name}`}
+        height="18"
+      />
+    )
+  }
   <span class="text-small">{name}</span>
 </div>
 
 <style>
   .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+
     background-color: var(--color-neutral-200);
     border-radius: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    flex-shrink: 0;
+    height: 1.5rem;
+    padding: 0 .25rem;
+
+    & > img {
+      background-color: rgba(255, 255, 255, .05);
+      border-radius: .75rem;
+
+      padding: .25rem;
+      margin-left: -0.25rem;
+      height: 100%;
+      min-width: 1.5rem;
+    }
+
+    & > span {
+      padding-right: .5rem;
+    }
   }
 </style>
