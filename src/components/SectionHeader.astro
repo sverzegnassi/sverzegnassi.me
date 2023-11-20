@@ -24,6 +24,18 @@ const { title, subtitle } = Astro.props;
       line-height: 3.247rem;
       margin-bottom: 2rem;
       color: var(--color-neutral-100);
+
+      /*
+        NOTE: This is marked as low contrast by WebAim's WAVE tools.
+        It's probably because color and background color are the same,
+        while we're using `text-shadow`.
+
+        Anyway, --color-neutral-500 still passes WCAG AA for Large Text (contrast ratio 3.8:1).
+        
+        It might be worth to increase the thickness of the border,
+        even if readability looks similar to the surrounding text
+        by blurring the whole page.
+      */
       text-shadow:
         var(--color-neutral-500) 1px 0px 0px,
         var(--color-neutral-500) 0.540302px 0.841471px 0px,
