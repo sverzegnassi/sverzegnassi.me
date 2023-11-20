@@ -19,11 +19,11 @@ interface Props {
 const { className, coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "Read more", mainHeader } = Astro.props;
 ---
 
-<div class:list={["card", className]} transition:persist transition:name={`card-${title}`} x-data=" { hover: false }">
+<div class:list={["card", className]} x-data=" { hover: false }">
   {
     coverImageUrl && (
       <div class="img-wrapper" :class="hover ? 'highlighted' : ''">
-        <img src={withWebpSupport(coverImageUrl)} alt={coverImageAlt} loading="lazy" />
+        <img src={withWebpSupport(coverImageUrl)} alt={coverImageAlt} loading="lazy">
       </div>
     )
   }

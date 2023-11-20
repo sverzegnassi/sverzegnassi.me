@@ -1,0 +1,27 @@
+---
+interface Props {
+    url: string;
+    alt: string;
+    caption?: string;
+
+    lazyload?: bool;
+}
+
+// Ref. https://www.storyblok.com/faq/image-dimensions-assets-js
+function imageDimensions(url) {
+  return {
+    width: url.split("/")[5].split("x")[0],
+    height: url.split("/")[5].split("x")[1],
+  };
+}
+
+
+const { url, alt, caption, lazyload } = Astro.props;
+---
+
+<picture>
+  <source type="image/webp" srcset={url + "/m/filters:format(webp)"}>
+  <img src={url} alt={alt} loading={lazyload ? "lazy" : "eager"}
+  width={imageDimensions(url).width} width={imageDimensions(url).height}
+  >
+</picture>
