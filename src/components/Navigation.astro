@@ -12,7 +12,7 @@ const navbarLinks = data?.story?.content?.navbar_links;
 const { "x-data": xData } = Astro.props
 ---
 
-<nav class="navbar" x-data={xData}>
+<nav class="navbar" x-data={xData} :aria-expanded="navbarOpen" aria-label="Main navigation">
   <a class="navbar-logo" href="/">
     <svg width="114" height="30" viewBox="0 0 114 30" xmlns="http://www.w3.org/2000/svg">
       <title>Stefano Verzegnassi</title>
@@ -39,7 +39,7 @@ const { "x-data": xData } = Astro.props
         ))
     }
   </ul>
-  <button class="navbar-button" @click="navbarOpen = !navbarOpen">
+  <button class="navbar-button" @click="navbarOpen = !navbarOpen" :aria-expanded="navbarOpen" :aria-label="! navbarOpen ? 'Open Navigation Menu' : 'Close Navigation Menu'">
     <span class="hamburger" :class="navbarOpen ? 'close-icon' : ''">
       <span class="hamburger-bar"></span>
       <span class="hamburger-bar"></span>

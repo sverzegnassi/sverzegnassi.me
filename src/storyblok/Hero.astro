@@ -6,7 +6,7 @@ const { blok } = Astro.props;
 
 <section {...storyblokEditable(blok)}>
   <div class="full-width hero hero-content">
-    <div class="hash"></div>
+    <div class="hash" aria-hidden="true"></div>
     <h1 class="hero-title">{blok.title}</h1>
     <p class="tag">{blok.tagline}</p>
   </div>

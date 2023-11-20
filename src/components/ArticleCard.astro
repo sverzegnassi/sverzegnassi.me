@@ -40,6 +40,7 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
           href={linkHref}
           @mouseover="hover = true"
           @mouseout="hover = false"
+          aria-label={linkText + " about " + title}
         >
           {linkText}
         </a>
