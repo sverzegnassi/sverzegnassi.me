@@ -1,7 +1,7 @@
 ---
 interface Props {
   url: string;
-  alt: string;
+  alt?: string;
   caption?: string;
 
   lazyload?: boolean;
@@ -48,7 +48,7 @@ const displaySize = displayDimensions(imageSize);
   {!isSvg && <source srcset={`${url}/m/${displaySize.width}x${displaySize.height}`} />}
   <img
     src={url}
-    alt={alt}
+    alt={alt || ""}
     loading={lazyload ? "lazy" : "eager"}
     width={isSvg ? 0 : displaySize.width}
     height={isSvg ? 0 : displaySize.height}
