@@ -2,8 +2,8 @@
 import { storyblokEditable, renderRichText } from "@storyblok/astro";
 import ArticleCard from "../components/ArticleCard.astro";
 //import BackToHomePage from "../components/BackToHomePage.astro";
-import { withWebpSupport, imageDimensions } from "../utils/storyblokUtils";
 import DetailsBox from "../components/DetailsBox.astro";
+import StoryblokImage from "../components/StoryblokImage.astro";
 
 const { blok } = Astro.props;
 const renderedRichText = renderRichText(blok.content);
@@ -16,19 +16,25 @@ const renderedRichText = renderRichText(blok.content);
      -->
     <div class="header-wrapper">
       <div class="card">
-        <ArticleCard 
+        <ArticleCard
           mainHeader={true}
           title={blok.title}
           description={blok.description}
           linkHref={blok.urls[0]?.link.url}
           linkText={blok.urls[0]?.title}
-          isLinkExternal=true
+          isLinkExternal="true"
         />
       </div>
       {
         blok.cover_image.filename && (
           <div class="cover-image">
-            <img src={withWebpSupport(blok.cover_image.filename)} alt={blok.cover_image.alt} width={imageDimensions(blok.cover_image.filename).width} height={imageDimensions(blok.cover_image.filename).height}>
+            <StoryblokImage
+              url={blok.cover_image.filename}
+              alt={blok.cover_image.alt}
+              lazyload={false}
+              maxWidth={768}
+              fitCover={true}
+            />
           </div>
         )
       }
@@ -42,9 +48,11 @@ const renderedRichText = renderRichText(blok.content);
     <div class="prose" set:html={renderedRichText} />
 
     <div class="multimedia">
-      {blok.multimedia.map((img: any) =>
-      <img loading="lazy" alt={img.alt} src={withWebpSupport(img.filename)} width={imageDimensions(img.filename).width} height={imageDimensions(img.filename).height}>
-      )}
+      {
+        blok.multimedia.map((img: any) => (
+          <StoryblokImage url={img.filename} alt={img.alt} lazyload={true} maxWidth={1024} />
+        ))
+      }
     </div>
   </div>
 </div>
@@ -62,7 +70,7 @@ const renderedRichText = renderRichText(blok.content);
           anchor.rel = "nofollow noopener";
 
           var labelText = anchor.textContent?.trim();
-          anchor.setAttribute('aria-label', labelText + ' (external link: opens in a new window)')
+          anchor.setAttribute("aria-label", labelText + " (external link: opens in a new window)");
 
           // Append an SVG icon to the anchor element
           /* HeroIcons
@@ -76,7 +84,8 @@ const renderedRichText = renderRichText(blok.content);
           svgIcon.setAttribute("stroke-width", "1.5");
           svgIcon.setAttribute("stroke", "currentColor");
 
-          svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />';
+          svgIcon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />';
 
           anchor.appendChild(svgIcon);
         }
@@ -102,13 +111,8 @@ const renderedRichText = renderRichText(blok.content);
   .cover-image {
     grid-column: 2 / 3;
     grid-row: span 1;
-
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
+
   .details {
     padding-top: 2rem;
   }
@@ -122,7 +126,7 @@ const renderedRichText = renderRichText(blok.content);
   .multimedia {
     display: block;
 
-    & > img {
+    & > * {
       width: 100%;
       height: auto;
       border: 1px solid var(--color-neutral-200);

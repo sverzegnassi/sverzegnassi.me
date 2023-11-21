@@ -1,27 +1,70 @@
 ---
 interface Props {
-    url: string;
-    alt: string;
-    caption?: string;
+  url: string;
+  alt: string;
+  caption?: string;
 
-    lazyload?: boolean;
+  lazyload?: boolean;
+  isSvg?: boolean;
+
+  maxWidth?: number;
+  fitCover?: boolean;
 }
 
+type Dimensions = {
+  width: number;
+  height: number;
+};
+
 // Ref. https://www.storyblok.com/faq/image-dimensions-assets-js
-function imageDimensions(url: string) {
+function imageDimensions(url: string): Dimensions {
   return {
-    width: url.split("/")[5].split("x")[0],
-    height: url.split("/")[5].split("x")[1],
+    width: Number(url.split("/")[5].split("x")[0]),
+    height: Number(url.split("/")[5].split("x")[1]),
   };
 }
 
+const { url, alt, caption, lazyload, isSvg = false, maxWidth, fitCover } = Astro.props;
 
-const { url, alt, caption, lazyload } = Astro.props;
+function displayDimensions({ width, height }: Dimensions) {
+  const newWidth = maxWidth || width;
+
+  return {
+    width: newWidth.toFixed(0),
+    height: ((newWidth / width) * height).toFixed(0),
+  };
+}
+
+const imageSize = imageDimensions(url);
+const displaySize = displayDimensions(imageSize);
 ---
 
 <picture>
-  <source type="image/webp" srcset={url + "/m/filters:format(webp)"}>
-  <img src={url} alt={alt} loading={lazyload ? "lazy" : "eager"}
-  width={imageDimensions(url).width} width={imageDimensions(url).height}
-  >
+  {
+    !isSvg && (
+      <source type="image/webp" srcset={`${url}/m/${displaySize.width}x${displaySize.height}/filters:format(webp)`} />
+    )
+  }
+  {!isSvg && <source srcset={`${url}/m/${displaySize.width}x${displaySize.height}`} />}
+  <img
+    src={url}
+    alt={alt}
+    loading={lazyload ? "lazy" : "eager"}
+    width={isSvg ? 0 : displaySize.width}
+    height={isSvg ? 0 : displaySize.height}
+    class:list={[ fitCover && 'fit-cover']}
+  />
+  {caption && <figcaption>{caption}</figcaption>}
 </picture>
+
+<style>
+  picture > img {
+    width: 100%;
+    height: auto;
+
+    &.fit-cover {
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+</style>
