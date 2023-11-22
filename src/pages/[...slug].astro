@@ -8,13 +8,10 @@ export async function getStaticPaths() {
 
   const { data } = await sbApi.get("cdn/stories", {
     version: import.meta.env.DEV ? "draft" : "published",
+    excluding_slugs: "technologies-used/*,config"
   });
 
   let stories = Object.values(data.stories);
-
-  stories = stories.filter(
-    (story: any) => !story.full_slug.startsWith("technologies-used/") && story.full_slug !== "config"
-  );
 
   return stories.map((story: any) => {
     return {
