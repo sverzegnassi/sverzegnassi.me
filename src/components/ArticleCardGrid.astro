@@ -35,15 +35,13 @@ const { entriesList, linkTextDefault } = Astro.props;
   .collection-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    min-height: 43vh;
+    grid-auto-rows: auto auto auto;
 
     /* Values from Webflow */
     /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
     @media (width < 991px) {
       & {
         grid-template-columns: 1fr 1fr;
-        row-gap: .5rem;
       }
     }
     
@@ -66,4 +64,5 @@ const { entriesList, linkTextDefault } = Astro.props;
     scale: 1.25;
     transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
   }
+
 </style>

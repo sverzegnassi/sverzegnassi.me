@@ -103,9 +103,6 @@ const renderedRichText = renderRichText(blok.content);
   .card {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    & > * {
-      height: 100%;
-    }
   }
 
   .cover-image {
@@ -169,6 +166,16 @@ const renderedRichText = renderRichText(blok.content);
 
     .cover-image {
       order: 0;
+    }
+  }
+</style>
+
+<style is:inline>
+  .card {
+    min-height: 43vh;
+
+    & > * {
+      height: 100%;
     }
   }
 </style>

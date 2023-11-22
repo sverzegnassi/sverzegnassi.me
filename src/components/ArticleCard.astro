@@ -72,13 +72,12 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
 <style>
   .card {
     background-color: var(--color-neutral-200);
-    min-height: 40vh;
-    height: 100%;
-
     grid-row: auto / span 3;
 
     display: grid;
     grid-template-rows: subgrid;
+
+    margin-bottom: .5rem;
 
     .el {
       grid-row: 2 / 3;
@@ -99,5 +98,5 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
       grid-row: 1 / 2;
       overflow: hidden;
       height: 14rem;
-  }
+    }
 </style>

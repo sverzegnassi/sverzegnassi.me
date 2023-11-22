@@ -12,10 +12,8 @@ const renderedRichText = renderRichText(blok.content);
     <!--
     <BackToHomePage text="Return to the home page" href="/" />
      -->
-    <div class="header-wrapper">
-      <div class="header-card">
-        <ArticleCard className="" mainHeader={true} title={blok.title} description={"Published " + blok.date} />
-      </div>
+    <div class="card">
+      <ArticleCard className="" mainHeader={true} title={blok.title} description={"Published " + blok.date} />
     </div>
   </header>
 
@@ -26,6 +24,16 @@ const renderedRichText = renderRichText(blok.content);
   .prose {
     padding-top: 4rem;
     max-width: 70ch;
+  }
+</style>
+
+<style is:inline>
+    .card {
+    min-height: 43vh;
+    
+    & > * {
+      height: 100%;
+    }
   }
 </style>
 
