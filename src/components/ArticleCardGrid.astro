@@ -54,3 +54,16 @@ const { entriesList, linkTextDefault } = Astro.props;
     }
   }
 </style>
+
+<style is:inline>
+  .collection-grid > .card > .img-wrapper > picture > img {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+    transition-duration: 125ms;
+  }
+
+  .collection-grid > .card > .img-wrapper.highlighted > picture > img {
+    scale: 1.25;
+    transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
+  }
+</style>
