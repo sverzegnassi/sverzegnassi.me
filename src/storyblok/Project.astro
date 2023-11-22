@@ -9,7 +9,7 @@ const { blok } = Astro.props;
 const renderedRichText = renderRichText(blok.content);
 ---
 
-<div class="section" {...storyblokEditable(blok)}>
+<div class="section not-prose" {...storyblokEditable(blok)}>
   <header class="full-width">
     <!--
     <BackToHomePage text="Return to the home page" href="/" />

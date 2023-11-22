@@ -83,6 +83,10 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
       grid-row: 2 / 3;
       padding: 1rem;
 
+      & > * + p {
+        margin-top: .5rem;
+      }
+
       & > p {
         color: var(--color-neutral-800);
       }
