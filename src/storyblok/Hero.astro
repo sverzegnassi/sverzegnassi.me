@@ -32,10 +32,9 @@ const { blok } = Astro.props;
   }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-
-  gsap.from(".hash", {opacity: 0, duration: 3 })
+<script type="module">
+  import { gsap } from "/gsap/esm/index.js";
+  import { CSSRulePlugin } from "/gsap/esm/CSSRulePlugin.js";
 
   var tl = gsap.timeline({ repeat: 0 });
   tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 0.5});
