@@ -206,3 +206,26 @@ section,
   outline-offset: 3px;
   z-index: 1000;
 }
+
+/* BUTTON */
+/*
+  TODO: Keep in mind, this borderless style is suitable only
+  for the navbar button.
+*/
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  
+  color: var(--color-neutral-900);
+  text-transform: uppercase;
+
+  background-color: transparent;
+  border: unset;
+  
+  &:hover {
+    background-color: var(--color-neutral-300);
+  } 
+}

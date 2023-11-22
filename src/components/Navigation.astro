@@ -41,7 +41,7 @@ const { "x-data": xData } = Astro.props;
       <span class="hamburger-bar"></span>
     </span>
 
-    <span class="navbar-button-text" x-text="! navbarOpen ? 'MENU' : 'CLOSE'">Menu</span>
+    <span x-text="! navbarOpen ? 'MENU' : 'CLOSE'">Menu</span>
   </button>
   <ul class="navbar-links-wrapper" :class="navbarOpen ? 'open' : ''">
     <span class="links-spacer"></span>
@@ -87,7 +87,7 @@ const { "x-data": xData } = Astro.props;
     flex-shrink: 1;
     max-width: 10rem;
     width: 100%;
-
+    
     & > img,
     & > svg {
       max-height: 1.25rem;
@@ -101,32 +101,7 @@ const { "x-data": xData } = Astro.props;
   }
 
   .navbar-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    height: 100%;
-    
-    flex-grow: 1;
-    flex-shrink: 1;
     max-width: 10rem;
-    width: 100%;
-
-    & .navbar-button-text {
-      color: var(--color-neutral-900);
-    }
-
-    background-color: transparent;
-    border: unset;
-
-    &:hover {
-      background-color: var(--color-neutral-300);
-    }
-
-    & span {
-      text-transform: uppercase;
-    }
   }
 
   .hamburger {
