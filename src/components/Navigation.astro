@@ -29,7 +29,20 @@ const { "x-data": xData } = Astro.props;
   </a>
 
   <div class="navbar-spacer"></div>
+  <button
+    class="navbar-button"
+    @click="navbarOpen = !navbarOpen"
+    :aria-expanded="navbarOpen"
+    :aria-label="! navbarOpen ? 'Open Navigation Menu' : 'Close Navigation Menu'"
+  >
+    <span class="hamburger" :class="navbarOpen ? 'close-icon' : ''">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </span>
 
+    <span class="navbar-button-text" x-text="! navbarOpen ? 'MENU' : 'CLOSE'">Menu</span>
+  </button>
   <ul class="navbar-links-wrapper" :class="navbarOpen ? 'open' : ''">
     <span class="links-spacer"></span>
     {
@@ -54,20 +67,6 @@ const { "x-data": xData } = Astro.props;
     }
     <span class="links-spacer"></span>
   </ul>
-  <button
-    class="navbar-button"
-    @click="navbarOpen = !navbarOpen"
-    :aria-expanded="navbarOpen"
-    :aria-label="! navbarOpen ? 'Open Navigation Menu' : 'Close Navigation Menu'"
-  >
-    <span class="hamburger" :class="navbarOpen ? 'close-icon' : ''">
-      <span class="hamburger-bar"></span>
-      <span class="hamburger-bar"></span>
-      <span class="hamburger-bar"></span>
-    </span>
-
-    <span class="navbar-button-text" x-text="! navbarOpen ? 'MENU' : 'CLOSE'">Menu</span>
-  </button>
 </nav>
 
 <style>
