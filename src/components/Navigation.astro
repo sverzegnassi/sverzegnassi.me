@@ -13,7 +13,7 @@ const navbarLinks = data?.story?.content?.navbar_links;
 const { "x-data": xData } = Astro.props;
 ---
 
-<nav class="navbar" x-data={xData} :aria-expanded="navbarOpen" aria-label="Main navigation">
+<nav class="navbar" x-data={xData} :aria-expanded="navbarOpen" x-on:keydown.escape="navbarOpen = false" aria-label="Main navigation">
   <a class="navbar-logo" href="/">
     <svg width="114" height="30" viewBox="0 0 114 30" xmlns="http://www.w3.org/2000/svg">
       <title>Stefano Verzegnassi</title>
