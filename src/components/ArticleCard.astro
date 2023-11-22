@@ -62,6 +62,7 @@ const { className, coverImageUrl, coverImageAlt, title, description, linkHref, l
             @mouseover="hover = true"
             @mouseout="hover = false"
             aria-label={linkText + " about " + title}
+            data-astro-prefetch
           >
             {linkText}
           </a>

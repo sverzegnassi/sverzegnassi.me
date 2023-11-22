@@ -15,6 +15,7 @@ for (const path in glob) {
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: true,
   image: {
     domains: ["storyblok.com"],
     remotePatterns: [{
