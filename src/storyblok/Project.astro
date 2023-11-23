@@ -9,12 +9,12 @@ const { blok } = Astro.props;
 const renderedRichText = renderRichText(blok.content);
 ---
 
-<div class="section not-prose" {...storyblokEditable(blok)}>
+<div class="section not-prose header-wrapper" {...storyblokEditable(blok)}>
   <header class="full-width">
     <!--
     <BackToHomePage text="Return to the home page" href="/" />
      -->
-    <div class="header-wrapper">
+    <div class="header-grid">
       <div class="card">
         <ArticleCard
           mainHeader={true}
@@ -95,7 +95,9 @@ const renderedRichText = renderRichText(blok.content);
 </script>
 
 <style>
-  .header-wrapper {
+  .header-wrapper { padding-top: 0; padding-bottom: 0;}
+
+  .header-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -111,13 +113,15 @@ const renderedRichText = renderRichText(blok.content);
   }
 
   .details {
-    padding-top: 2rem;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 4rem;
+    column-gap: 3rem;
   }
 
   .multimedia {
@@ -176,6 +180,19 @@ const renderedRichText = renderRichText(blok.content);
 
     & > * {
       height: 100%;
+      padding: 1.5rem;
+    }
+  }
+
+  @media (width < 478px) {
+    .card > * {
+      padding: .75rem;
+    }
+
+    .details {
+      padding-top: 1.5rem !important;
+      padding-left: .75rem !important;
+      padding-right: .75rem !important;
     }
   }
 </style>

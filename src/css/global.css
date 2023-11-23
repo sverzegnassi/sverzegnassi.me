@@ -161,8 +161,8 @@ pre {
 /*** LAYOUT ***/
 section,
 .section {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 
   max-width: 1440px;
   margin: 0 auto;
