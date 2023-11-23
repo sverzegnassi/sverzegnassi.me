@@ -28,7 +28,7 @@ export default defineConfig({
       https: true
     }
   },
-  site: "https://example.com",
+  site: "https://sverzegnassi.me",
   integrations: [sitemap(), storyblok({
     accessToken: env.STORYBLOK_TOKEN,
     componentsDir: "src/storyblok",
