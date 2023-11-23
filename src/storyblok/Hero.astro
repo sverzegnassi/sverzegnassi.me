@@ -8,9 +8,9 @@ const { blok } = Astro.props;
   <div class="background full-width"></div>
   <div class="hero-content full-width not-prose">
     <h1 class="hero-title">
-      {blok.title}
+      {blok.title}<span class="caret" aria-hidden="true">_</span>
     </h1>
-    <p class="tag">{blok.tagline}</p>
+    <p class="hero-tag">{blok.tagline}</p>
   </div>
 </section>
 
@@ -74,8 +74,7 @@ const { blok } = Astro.props;
 </style>
 
 <style is:inline>
-  .hero-title::after {
-    content: "_";
+  .caret {
     color: var(--color-neutral-500);
     opacity: 0;
     padding-left: 0.12ch;
@@ -83,17 +82,13 @@ const { blok } = Astro.props;
 </style>
 
 <script is:inline src="/gsap/minified/gsap.min.js" defer></script>
-<script is:inline src="/gsap/minified/CSSRulePlugin.min.js" defer></script>
 <script is:inline defer>
   window.addEventListener("load", (event) => {
-    gsap.registerPlugin(CSSRulePlugin);
-
-    const caret = CSSRulePlugin.getRule(".hero-title:after");
-
     var tl = gsap.timeline({ repeat: 0 });
     tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 1 });
-    tl.from(".tag", { opacity: 0, translateY: 50, duration: 0.5 });
-    tl.fromTo(caret, { opacity: 0 }, { opacity: 1, duration: 1.5, repeat: -1, yoyo: true });
+    tl.from(".hero-tag", { opacity: 0, translateY: 50, duration: 0.5 });
+    tl.from(".hero-links", { opacity: 0, translateY: 50, duration: 0.5 }, "-=0.5");
+    tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: 1.5, ease: "expo.inOut", repeat: -1, yoyo: true });
 
     var bgtl = gsap.timeline({ repeat: -1 });
     bgtl.to(".background", { opacity: 1, duration: 1 });
