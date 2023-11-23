@@ -5,38 +5,83 @@ const { blok } = Astro.props;
 ---
 
 <section {...storyblokEditable(blok)}>
-  <div class="full-width hero hero-content">
-    <div class="hash" aria-hidden="true"></div>
-    <h1 class="hero-title">{blok.title}</h1>
+  <div class="background full-width"></div>
+  <div class="hero-content full-width not-prose">
+    <h1 class="hero-title">
+      {blok.title}
+    </h1>
     <p class="tag">{blok.tagline}</p>
   </div>
 </section>
 
 <style>
   section {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-
-    text-align: center;
+    padding: 0;
+    position: relative;
   }
 
-  .hash {
-    margin-bottom: -1rem;
+  .hero-content {
+    margin: 3rem;
+    padding-top: 9rem;
+    padding-bottom: 1.5rem;
 
-    &::before {
-      content: "#";
-      color: var(--color-neutral-300);
-      font-size: 4rem;
-      font-weight: 700;
+    & > * {
+      max-width: 60ch;
     }
   }
+
+  .hero-title {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--color-neutral-800);
+  }
+
+  .background {
+    background-image: image-set(url("hero-bg-new.webp") type("image/webp"), url("hero-bg-new.png") type("image/png"));
+    background-size: 200%;
+    background-position: top left;
+    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    filter: blur(48px);
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    border-radius: 6px;
+    opacity: 0;
+  }
+</style>
+
+<style is:inline>
+    .hero-title::after {
+      content: "_";
+      color: var(--color-neutral-500);
+      opacity: 0;
+      padding-left: .12ch;
+    }
 </style>
 
 <script type="module">
   import { gsap } from "/gsap/esm/index.js";
   import { CSSRulePlugin } from "/gsap/esm/CSSRulePlugin.js";
+  gsap.registerPlugin(CSSRulePlugin);
+  
+  const caret = CSSRulePlugin.getRule(".hero-title:after");
 
   var tl = gsap.timeline({ repeat: 0 });
-  tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 0.5});
-  tl.from(".tag", { opacity: 0, translateY: 50, duration: 1 });
+  tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 1 });
+  tl.from(".tag", { opacity: 0, translateY: 50, duration: .5 });
+  tl.fromTo(caret, { opacity: 0}, { opacity: 1, duration: 1.5, repeat: -1, yoyo: true });
+
+  var bgtl = gsap.timeline({ repeat: -1 });
+  bgtl.to(".background", { opacity: 1, duration: 1 });
+  bgtl.to(".background", {
+    duration: 20,
+    backgroundPositionX: "100%",
+    backgroundPositionY: "100%"
+  },'-=3');
+  bgtl.to(".background", { opacity: 0, duration: 5 });
+  
 </script>
