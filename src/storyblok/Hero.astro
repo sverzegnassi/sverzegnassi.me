@@ -52,6 +52,12 @@ const { blok } = Astro.props;
     border-radius: 6px;
     opacity: 0;
   }
+
+  @media (width < 767px) {
+    .hero-content {
+      padding-top: 6rem;
+    }
+  }
 </style>
 
 <style is:inline>

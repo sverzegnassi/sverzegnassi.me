@@ -56,4 +56,11 @@ const { title, subtitle } = Astro.props;
       color: var(--color-neutral-800);
     }
   }
+
+  @media (width < 767px) {
+    header > h2 {
+      font-size: 4.624rem;
+      margin-bottom: 0;
+    }
+  }
 </style>
