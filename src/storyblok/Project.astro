@@ -1,9 +1,8 @@
 ---
 import { storyblokEditable, renderRichText } from "@storyblok/astro";
-import ArticleCard from "../components/ArticleCard.astro";
-//import BackToHomePage from "../components/BackToHomePage.astro";
 import DetailsBox from "../components/DetailsBox.astro";
 import StoryblokImage from "../components/StoryblokImage.astro";
+import LinkResolver from "../components/LinkResolver.astro";
 
 const { blok } = Astro.props;
 const renderedRichText = renderRichText(blok.content);
@@ -11,19 +10,22 @@ const renderedRichText = renderRichText(blok.content);
 
 <div class="section not-prose header-wrapper" {...storyblokEditable(blok)}>
   <header class="full-width">
-    <!--
-    <BackToHomePage text="Return to the home page" href="/" />
-     -->
     <div class="header-grid">
-      <div class="card">
-        <ArticleCard
-          mainHeader={true}
-          title={blok.title}
-          description={blok.description}
-          linkHref={blok.urls[0]?.link.url}
-          linkText={blok.urls[0]?.title}
-          isLinkExternal="true"
-        />
+      <div class="header-card">
+        <div class="el">
+          <h1>{blok.title}</h1>
+          {blok.description && <p class="text-small">{blok.description}</p>}
+        </div>
+
+        {
+          blok.urls && (
+            <div class="header-links">
+              {blok.urls.map((l: any) => (
+                <LinkResolver linkBlock={l} />
+              ))}
+            </div>
+          )
+        }
       </div>
       {
         blok.cover_image.filename && (
@@ -95,16 +97,35 @@ const renderedRichText = renderRichText(blok.content);
 </script>
 
 <style>
-  .header-wrapper { padding-top: 0; padding-bottom: 0;}
+  .header-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
   .header-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
-  .card {
+  .header-card {
+    background-color: var(--color-neutral-200);
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 43vh;
+    padding: 1rem;
+
+    & > .el {
+      margin-bottom: 6rem;
+    }
+
+    & > .header-links {
+      display: flex;
+      column-gap: 1rem;
+    }
   }
 
   .cover-image {
@@ -148,51 +169,60 @@ const renderedRichText = renderRichText(blok.content);
     .prose {
       order: 1;
     }
+
+    .header-card {
+      padding: 1.5rem;
+    }
   }
 
   @media (width < 767px) {
-    .card {
-      grid-column: span 1;
+    .cover-image {
+      grid-column: 1 / 3;
       grid-row: span 1;
+      order: 0;
+    }
+
+    .header-card {
+      order: 2;
+      grid-column: 1 / 3;
+      grid-row: span 1;
+
+      & > .el {
+        margin-bottom: 1.5rem;
+      }
     }
   }
 
   @media (width < 478px) {
-    .cover-image {
-      grid-column: span 2;
-      grid-row: span 1;
+    .header-card .el {
+      margin-bottom: 3rem;
     }
 
-    .card {
-      order: 1;
-      grid-column: span 2;
-    }
-
-    .cover-image {
-      order: 0;
+    .details {
+      padding-top: 1.5rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
     }
   }
 </style>
 
 <style is:inline>
-  .card {
-    min-height: 43vh;
+  @media (width < 991px) {
+    /* WORKAROUND: This needs to stay inline, since <LinkResolver /> is an
+    Astro component, and it doesn't get parsed properly
+    during CSS optimization. */
 
-    & > * {
-      height: 100%;
-      padding: 1.5rem;
-    }
-  }
+    .header-links {
+      flex-direction: column;
+      row-gap: 0.5rem;
 
-  @media (width < 478px) {
-    .card > * {
-      padding: .75rem;
-    }
+      & > .button {
+        justify-content: flex-start;
+      }
 
-    .details {
-      padding-top: 1.5rem !important;
-      padding-left: .75rem !important;
-      padding-right: .75rem !important;
+      & > .button + a {
+        padding: 0.75rem 1.5rem;
+      }
     }
   }
 </style>
