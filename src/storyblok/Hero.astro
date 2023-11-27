@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import LinkResolver from "../components/LinkResolver.astro";
 
 const { blok } = Astro.props;
 ---
@@ -10,6 +11,16 @@ const { blok } = Astro.props;
       {blok.title}<span class="caret" aria-hidden="true">_</span>
     </h1>
     <p class="hero-tag">{blok.tagline}</p>
+
+    {
+      blok.links && (
+        <div class="hero-links">
+          {blok.links.map((l: any) => (
+            <LinkResolver linkBlock={l} />
+          ))}
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -41,6 +52,9 @@ const { blok } = Astro.props;
     }
   }
 
+  .hero-links {
+    margin-top: 1.5rem;
+  }
 </style>
 
 <style is:inline>
@@ -58,6 +72,6 @@ const { blok } = Astro.props;
     tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 1 });
     tl.from(".hero-tag", { opacity: 0, translateY: 50, duration: 0.5 });
     tl.from(".hero-links", { opacity: 0, translateY: 50, duration: 0.5 }, "-=0.5");
-    tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: .5, ease: "expo.inOut", repeat: -1, yoyo: true });
+    tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "expo.inOut", repeat: -1, yoyo: true });
   });
 </script>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  linkBlock: any;
+}
+
+import ExternalLinkIcon from "../components/ExternalLinkIcon.astro";
+
+const { linkBlock } = Astro.props;
+---
+
+{
+  () => {
+    const link = linkBlock.link;
+
+    switch (link.linktype) {
+      case "url": // External URL
+        return (
+          <a
+            href={`${linkBlock.link.url}`}
+            rel={link.rel || "noopener nofollow"}
+            target={link.target}
+            title={link.title}
+            aria-label={link["aria-label"] || `${linkBlock.title} (external link: opens in a new window)`}
+          >
+            {linkBlock.title}
+            <ExternalLinkIcon />
+          </a>
+        );
+      case "email":
+        return (
+          <a href={`mailto:${link.email}`} target={link.target}>
+            {linkBlock.title}
+          </a>
+        );
+      case "story":
+        return (
+          <a href={`/${link.story?.full_slug}`} target={link.target}>
+            {linkBlock.title}
+          </a>
+        );
+    }
+  }
+}

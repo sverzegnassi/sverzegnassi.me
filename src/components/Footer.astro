@@ -1,6 +1,6 @@
 ---
-import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 import { useStoryblokApi } from "@storyblok/astro";
+import LinkResolver from "./LinkResolver.astro";
 
 const today = new Date();
 
@@ -10,23 +10,15 @@ const { data } = await storyblokApi.get("cdn/stories/config", {
   resolve_links: "url",
 });
 
+const copyrightNotice = data?.story?.content?.copyright_notice
 const footerLinks = data?.story?.content?.footer_links;
+const sourceCodeLink = data?.story?.content?.source_code_link[0]
 ---
 
 <footer class="section">
   <div class="full-width">
     <div class="main">
-      <div>
-        <p>
-          &copy; {today.getFullYear()} Stefano Verzegnassi
-          <br />
-           This work is licensed under <a
-            href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1"
-            target="_blank"
-            rel="license nofollow noopener noreferrer"
-            aria-label="Read more about CC BY-NC 4.0 license">CC BY-NC 4.0<ExternalLinkIcon /></a
-          >
-        </p>
+      <div set:html={copyrightNotice}>
       </div>
 
       <ul class="links">
@@ -34,19 +26,7 @@ const footerLinks = data?.story?.content?.footer_links;
           footerLinks &&
             footerLinks.map((l: any) => (
               <li>
-                {l.link.linktype == "url" ? (
-                  <a
-                    href={`${l.link.url}`}
-                    rel="noopener nofollow"
-                    target="_blank"
-                    aria-label={l.title + "(external link: opens in a new window)"}
-                  >
-                    {l.title}
-                    <ExternalLinkIcon />
-                  </a>
-                ) : (
-                  <a href={`/${l.link.url}`}>{l.title}</a>
-                )}
+                <LinkResolver linkBlock={l} />
               </li>
             ))
         }
@@ -102,13 +82,10 @@ const footerLinks = data?.story?.content?.footer_links;
         >
       </p>
 
-      <a
-        href="https://github.com/sverzegnassi/sverzegnassi.me"
-        target="_blank"
-        rel="noopener nofollow"
-        aria-label="Check website's source code on GitHub (external link: opens in a new window)"
-        >Source code on GitHub<ExternalLinkIcon /></a
-      >
+      {
+        sourceCodeLink && 
+          <LinkResolver linkBlock={sourceCodeLink} />
+      }
     </div>
   </div>
 </footer>
@@ -185,8 +162,5 @@ const footerLinks = data?.story?.content?.footer_links;
     .logo {
       padding: 0;
     }
-  }
-
-  @media (width < 478px) {
   }
 </style>

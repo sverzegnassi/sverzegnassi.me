@@ -1,6 +1,6 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import ExternalLinkIcon from "./ExternalLinkIcon.astro";
+import LinkResolver from "./LinkResolver.astro";
 
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get("cdn/stories/config", {
@@ -49,20 +49,8 @@ const { "x-data": xData } = Astro.props;
     {
       navbarLinks &&
         navbarLinks.map((l: any) => (
-          <li>
-            {l.link.linktype == "url" ? (
-              <a
-                href={`${l.link.url}`}
-                rel="noopener nofollow"
-                target="_blank"
-                aria-label={l.title + "(external link: opens in a new window)"}
-              >
-                {l.title}
-                <ExternalLinkIcon />
-              </a>
-            ) : (
-              <a href={`/${l.link.url}`}>{l.title}</a>
-            )}
+          <li>          
+            <LinkResolver linkBlock={l} />
           </li>
         ))
     }
