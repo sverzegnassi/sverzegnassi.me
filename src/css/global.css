@@ -172,6 +172,20 @@ section,
   }
 }
 
+@media (width > 1440px) {
+  section, .section {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    &:not(:last-child) {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+}
+
+/* A11Y */
+
 @media (prefers-reduced-motion) {
   * {
     animation: none;
