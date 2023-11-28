@@ -79,3 +79,29 @@ const { entriesList, linkTextDefault } = Astro.props;
     }
   }
 </style>
+
+<script is:inline src="/gsap/minified/gsap.min.js" defer></script>
+<script is:inline src="/gsap/minified/ScrollTrigger.min.js" defer></script>
+<script is:inline defer>
+  window.addEventListener("load", () => {
+    let mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.utils.toArray(".card").forEach((card) => {
+        const q = gsap.utils.selector(card);
+        var tl = gsap.timeline({ repeat: 0 });
+
+        gsap.from(q(".img-wrapper #card-img-fg"), {
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom",
+          },
+          translateY: "50%",
+          duration: 0.5,
+        });
+      });
+    });
+  });
+</script>
