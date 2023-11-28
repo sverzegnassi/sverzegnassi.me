@@ -102,6 +102,7 @@ a {
 
   &:visited:hover {
     color: var(--color-linkVisited-900);
+    text-decoration-color: var(--color-linkVisited-900);
   }
 
   /* Style for icons inside <a> */
