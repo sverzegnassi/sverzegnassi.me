@@ -68,10 +68,14 @@ const { blok } = Astro.props;
 <script is:inline src="/gsap/minified/gsap.min.js" defer></script>
 <script is:inline defer>
   window.addEventListener("load", () => {
-    var tl = gsap.timeline({ repeat: 0 });
-    tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 1 });
-    tl.from(".hero-tag", { opacity: 0, translateY: 50, duration: 0.5 });
-    tl.from(".hero-links", { opacity: 0, translateY: 50, duration: 0.5 }, "-=0.5");
-    tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "expo.inOut", repeat: -1, yoyo: true });
+    let mm = gsap.matchMedia()
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      var tl = gsap.timeline({ repeat: 0 });
+      tl.from(".hero-title", { opacity: 0, translateX: -100, duration: 1 });
+      tl.from(".hero-tag", { opacity: 0, translateX: -50, duration: 0.5 });
+      tl.from(".hero-links", { opacity: 0, duration: 0.5 });
+      tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "expo.inOut", repeat: -1, yoyo: true });
+    });
   });
 </script>
