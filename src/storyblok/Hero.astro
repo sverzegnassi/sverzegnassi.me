@@ -67,7 +67,7 @@ const { blok } = Astro.props;
 
 <script is:inline src="/gsap/minified/gsap.min.js" defer></script>
 <script is:inline defer>
-  window.addEventListener("load", (event) => {
+  window.addEventListener("load", () => {
     var tl = gsap.timeline({ repeat: 0 });
     tl.from(".hero-title", { opacity: 0, translateY: 100, duration: 1 });
     tl.from(".hero-tag", { opacity: 0, translateY: 50, duration: 0.5 });

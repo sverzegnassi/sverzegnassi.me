@@ -11,11 +11,9 @@ interface Props {
   description?: string;
 
   linkHref?: string;
-  linkText?: string;
-  isLinkExternal?: string;
-}
+  linkText?: string;}
 
-const { coverImageUrl, coverImageAlt, coverImageBackground, title, description, linkHref, linkText = "Read more", isLinkExternal } = Astro.props;
+const { coverImageUrl, coverImageAlt, coverImageBackground, title, description, linkHref, linkText = "Read more" } = Astro.props;
 ---
 
 <div class="card" x-data=" { hover: false }">

@@ -2,8 +2,6 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import LinkResolver from "./LinkResolver.astro";
 
-const today = new Date();
-
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get("cdn/stories/config", {
   version: "draft",
