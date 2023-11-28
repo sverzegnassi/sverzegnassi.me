@@ -1,11 +1,11 @@
 ---
-import { withWebpSupport } from "../utils/storyblokUtils";
-import ExternalLinkIcon from "./ExternalLinkIcon.astro";
 import StoryblokImage from "./StoryblokImage.astro";
 
 interface Props {
   coverImageUrl?: string;
   coverImageAlt?: string;
+
+  coverImageBackground?: string;
 
   title: string;
   description?: string;
@@ -15,20 +15,33 @@ interface Props {
   isLinkExternal?: string;
 }
 
-const { coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "Read more", isLinkExternal } = Astro.props;
+const { coverImageUrl, coverImageAlt, coverImageBackground, title, description, linkHref, linkText = "Read more", isLinkExternal } = Astro.props;
 ---
 
 <div class="card" x-data=" { hover: false }">
   {
     coverImageUrl && (
-      <div class="img-wrapper" :class="hover ? 'highlighted' : ''">
-        <StoryblokImage
-              url={coverImageUrl}
-              alt={coverImageAlt}
+      <div class="img-wrapper" x-bind:class="hover ? 'highlighted' : ''">
+        { coverImageBackground &&
+          <div id="card-img-bg">
+            <StoryblokImage
+              url={coverImageBackground}
+              alt=""
               lazyload={false}
-              maxWidth={600}
+              maxWidth={256}
               fitCover={true}
             />
+          }
+        </div>
+        <div id="card-img-fg">
+          <StoryblokImage
+            url={coverImageUrl}
+            alt={coverImageAlt}
+            lazyload={false}
+            maxWidth={840}
+            fitCover={true}
+          />
+        </div>
       </div>
     )
   }
@@ -61,7 +74,7 @@ const { coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "
     display: grid;
     grid-template-rows: subgrid;
 
-    margin-bottom: .5rem;
+    margin-bottom: 1.5rem;
 
     .el {
       grid-row: 2 / 3;
@@ -85,6 +98,27 @@ const { coverImageUrl, coverImageAlt, title, description, linkHref, linkText = "
     .img-wrapper {
       grid-row: 1 / 2;
       overflow: hidden;
-      height: 14rem;
+      height: 24rem;
+      position: relative;
     }
+</style>
+
+<style is:inline>
+  #card-img-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  #card-img-fg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
 </style>

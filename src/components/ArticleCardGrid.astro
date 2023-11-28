@@ -3,6 +3,8 @@ import ArticleCard from "./ArticleCard.astro";
 interface Props {
   entriesList: {
     content: {
+      card_background: { filename: string | undefined; alt: string | undefined };
+      card_foreground: { filename: string | undefined; alt: string | undefined };
       cover_image: { filename: string | undefined; alt: string | undefined };
       title: string;
       description: string | undefined;
@@ -20,8 +22,9 @@ const { entriesList, linkTextDefault } = Astro.props;
   {
     entriesList.map((entry) => (
       <ArticleCard
-        coverImageUrl={entry.content?.cover_image?.filename}
-        coverImageAlt={entry.content?.cover_image?.alt}
+        coverImageUrl={entry.content?.card_foreground?.filename || entry.content?.cover_image?.filename}
+        coverImageAlt={entry.content?.card_foreground?.alt || entry.content?.cover_image?.alt}
+        coverImageBackground={entry.content?.card_background?.filename}
         title={entry.content?.title}
         description={entry.content?.description}
         linkHref={entry.full_slug}
@@ -34,7 +37,7 @@ const { entriesList, linkTextDefault } = Astro.props;
 <style>
   .collection-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
     grid-auto-rows: auto auto auto;
 
     /* Values from Webflow */
@@ -54,14 +57,23 @@ const { entriesList, linkTextDefault } = Astro.props;
 </style>
 
 <style is:inline>
-  .collection-grid > .card > .img-wrapper > picture > img {
+  /* This is here and not in ArticleCard.astro, otherwise it appears N times in the code,
+    one for each instance of ArticleCard.
+  */
+  .collection-grid > .card > .img-wrapper > div > picture > img {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
     transition-duration: 125ms;
+    transform: perspective(500px) translateZ(0px);
   }
 
-  .collection-grid > .card > .img-wrapper.highlighted > picture > img {
-    scale: 1.25;
+  .collection-grid > .card > .img-wrapper.highlighted > div#card-img-fg > picture > img {
+    transform: perspective(500px) translateZ(50px);
+    transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
+  }
+
+  .collection-grid > .card > .img-wrapper.highlighted > div#card-img-bg > picture > img {
+    transform: perspective(500px) translateZ(10px);
     transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
   }
 
