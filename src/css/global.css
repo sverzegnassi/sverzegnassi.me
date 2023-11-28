@@ -1,37 +1,19 @@
 :root {
-  --color-neutral-100: #0d1d2b;
-  --color-neutral-200: #1a2938;
-  --color-neutral-300: #4e5d6e;
-  --color-neutral-400: #5a6a7a;
+  --color-neutral-100: #141c28;
+  --color-neutral-200: #202835;
+  --color-neutral-300: #545c6b;
+  --color-neutral-400: #606877;
   --color-neutral-500: #c85131;
-  --color-neutral-600: #8392a4;
-  --color-neutral-700: #c3d3e6;
-  --color-neutral-800: #edf4ff;
-  --color-neutral-900: #f7f9ff;
+  --color-neutral-600: #8991a0;
+  --color-neutral-700: #cad2e3;
+  --color-neutral-800: #f0f3ff;
+  --color-neutral-900: #f9f9ff;
 
-  --color-link-100: #006FC4;
-  --color-link-900: #1099C7;
+  --color-link-100: #0067d5;
+  --color-link-900: #418cff;
 
-  --color-linkVisited-100: #AE33D4;
+  --color-linkVisited-100: #a132d3;
   --color-linkVisited-900: #c95cfb;
-
-/*
---color-neutral-100: #f7f9ff;
---color-neutral-200: #edf4ff;
---color-neutral-300: #c3d3e6;
---color-neutral-400: #8392a4;
---color-neutral-500: #c85131;
---color-neutral-600: #5a6a7a;
---color-neutral-700: #4e5d6e;
---color-neutral-800: #1a2938;
---color-neutral-900: #0d1d2b;
-
---color-link-100: #1099C7;
---color-link-900: #006FC4;
-
---color-linkVisited-100: #c95cfb;
---color-linkVisited-900: #AE33D4;
-*/
 }
 
 /*** TYPOGRAPHY ***/
