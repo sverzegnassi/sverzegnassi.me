@@ -1,0 +1,37 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)}>
+  <div class="columns--two">
+    <div>
+      {
+        blok.column_left?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} />;
+        })
+      }
+    </div>
+    <div>
+      {
+        blok.column_right?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} />;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .columns--two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-content: space-around;
+    column-gap: 1.5rem;
+  }
+
+  .column {
+  }
+</style>
