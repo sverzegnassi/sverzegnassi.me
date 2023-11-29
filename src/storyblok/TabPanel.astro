@@ -1,0 +1,30 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<div class="tab-panel" {...storyblokEditable(blok)}>
+  {
+    blok.content?.map((blok: any) => {
+      return <StoryblokComponent blok={blok} />;
+    })
+  }
+</div>
+
+<style>
+  .tab-panel {
+    animation-duration: 1000ms;
+    animation-name: animate-entrance;
+  }
+
+  @keyframes animate-entrance {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>

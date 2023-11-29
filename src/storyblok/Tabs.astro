@@ -1,0 +1,99 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)}>
+  <div x-data=`{ activePanel: 'panel_${blok.tab_panels[0]?._uid}' }`>
+    <!-- TODO: Edit aria-label -->
+    <div class="tablist--wrapper">
+      <div class="tablist" role="tablist" aria-label="Sample Tabs">
+        {
+          blok.tab_panels?.map((panel: any) => {
+            return (
+              <button
+                x-data={`{ refPanel: 'panel_${panel._uid}' }`}
+                id={`tab_${panel._uid}`}
+                role="tab"
+                class="tab-button"
+                x-bind:class={`{ 'active': ( activePanel == refPanel ) }`}
+                x-bind:tabindex="activePanel === refPanel ? 0 : -1"
+                x-bind:aria-selected="activePanel === refPanel"
+                x-bind-aria-controls="{ refPanel }"
+                x-on:click.prevent="activePanel = refPanel"
+                @keydown.left.prevent="$el.previousElementSibling.focus()"
+                @keydown.right.prevent="$el.nextElementSibling.focus()"
+              >
+                {panel.title}
+              </button>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    {
+      blok.tab_panels?.map((panel: any) => {
+        return (
+          <div
+            x-data={`{ refPanel: 'panel_${panel._uid}' }`}
+            id={`panel_${panel._uid}`}
+            role="tabpanel"
+            tabindex="0"
+            aria-labelledby={`tab_${panel._uid}`}
+            x-bind:hidden="activePanel !== refPanel"
+          >
+            <StoryblokComponent blok={panel} />
+          </div>
+        );
+      })
+    }
+  </div>
+</section>
+
+<style>
+  .tablist--wrapper {
+    display: flex;
+    align-content: center;
+  }
+
+  .tablist {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    padding: 0.33rem;
+    margin: 2rem auto;
+
+    column-gap: 0.33rem;
+    row-gap: 0.33rem;
+
+    background-color: var(--color-neutral-200);
+    border-radius: 5rem;
+  }
+
+  .tab-button {
+    background-color: transparent;
+    color: var(--color-neutral-900);
+
+    &.active {
+      background-color: var(--color-neutral-800);
+      color: var(--color-neutral-100);
+    }
+
+    &:hover {
+      background-color: var(--color-neutral-300);
+    }
+
+    &:hover[aria-selected="true"] {
+      background-color: var(--color-neutral-600);
+    }
+
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+</style>
