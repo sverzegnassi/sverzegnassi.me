@@ -203,24 +203,47 @@ section,
 }
 
 /* BUTTON */
-/*
-  TODO: Keep in mind, this borderless style is suitable only
-  for the navbar button.
-*/
-button {
+button, .button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem;
+
+  padding: .75rem 1.5rem;
+
+  border: unset;
+  background-color: var(--color-neutral-800);
+  color: var(--color-neutral-100);
+
+  text-decoration: none;
   
-  color: var(--color-neutral-900);
+  border-radius: 3rem;
+
+  &:hover {
+      background-color: var(--color-neutral-700);
+  }
+
+  &:active {
+      scale: 0.94;
+  }
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.navbar-button {
   text-transform: uppercase;
+  border-radius: 0;
 
   background-color: transparent;
-  border: unset;
-  
+  color: var(--color-neutral-900);
+
   &:hover {
     background-color: var(--color-neutral-300);
   } 
+
+  &:active {
+    scale: 1;
+}
 }
