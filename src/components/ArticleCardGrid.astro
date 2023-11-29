@@ -91,7 +91,6 @@ const { entriesList, linkTextDefault } = Astro.props;
 
       gsap.utils.toArray(".card").forEach((card) => {
         const q = gsap.utils.selector(card);
-        var tl = gsap.timeline({ repeat: 0 });
 
         gsap.from(q(".img-wrapper #card-img-fg"), {
           scrollTrigger: {
