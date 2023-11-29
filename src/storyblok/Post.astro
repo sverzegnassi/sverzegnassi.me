@@ -1,12 +1,12 @@
 ---
-import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import { storyblokEditable } from "@storyblok/astro";
+import RichText from "./RichText.astro";
 
 const { blok } = Astro.props;
-const renderedRichText = renderRichText(blok.content);
 ---
 
 <article class="section" {...storyblokEditable(blok)}>
-  <header class="full-width">
+  <header>
     <div class="header-card">
       <div class="el">
         <h1>{blok.title}</h1>
@@ -24,18 +24,17 @@ const renderedRichText = renderRichText(blok.content);
     </div>
   </header>
 
-  <div class="prose" set:html={renderedRichText} />
+  <div class="section">
+    <RichText blok={blok} />
+  </div>
 </article>
 
 <style>
-  .section {
-    padding-top: 0;
-  }
-
   .header-card {
     background-color: var(--color-neutral-200);
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+    text-align: center;
 
     display: flex;
     flex-direction: column;
@@ -49,51 +48,9 @@ const renderedRichText = renderRichText(blok.content);
     }
   }
 
-  .prose {
-    padding-top: 4rem;
-    max-width: 70ch;
-  }
-
   @media (width < 991px) {
     .header-card {
       padding: 1.5rem;
     }
   }
 </style>
-
-<script defer>
-  document.addEventListener("DOMContentLoaded", function () {
-    var proseElement = document.querySelector(".prose");
-
-    if (proseElement) {
-      var anchorElements = proseElement.querySelectorAll("a");
-      anchorElements.forEach(function (anchor) {
-        var href = anchor.href;
-
-        if (href.startsWith("http://") || href.startsWith("https://")) {
-          anchor.rel = "nofollow noopener";
-
-          var labelText = anchor.textContent?.trim();
-          anchor.setAttribute("aria-label", labelText + " (external link: opens in a new window)");
-
-          // Append an SVG icon to the anchor element
-          /* HeroIcons
-           *   - URL: https://heroicons.com/
-           *   - Source Code: https://github.com/tailwindlabs/heroicons
-           *   - License: MIT
-           */
-          var svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-          svgIcon.setAttribute("fill", "none");
-          svgIcon.setAttribute("viewBox", "0 0 24 24");
-          svgIcon.setAttribute("stroke-width", "1.5");
-          svgIcon.setAttribute("stroke", "currentColor");
-
-          svgIcon.innerHTML =
-            '<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />';
-
-          anchor.appendChild(svgIcon);
-        }
-      });
-    }
-  });
-</script>
