@@ -1,0 +1,149 @@
+---
+const { blok } = Astro.props;
+const chartId = "chart_" + crypto.getRandomValues(new Uint32Array(4)).join("");
+
+const { data, caption } = blok;
+---
+
+<div>
+  <table class="bar-chart" id={chartId}>
+    <caption class="chart-caption">{caption}</caption>
+    <thead class="chart-subgrid chart-header">
+      <tr class="chart-row">
+        {
+          data.thead?.map((th: any) => {
+            return <th class="chart-label chart-head">{th.value}</th>;
+          })
+        }
+      </tr>
+    </thead>
+    <tbody class="chart-subgrid">
+      {
+        () => {
+          return data.tbody?.map((tr: any) => {
+            return (
+              <tr class="chart-row">
+                {tr.body?.map((td: any, index: number, array: any) => {
+                  return index == 0 ? (
+                    <th class="chart-label" scope="row">
+                      {td.value}
+                    </th>
+                  ) : (
+                    <td class="chart-line" style={`--size: ${td.value}`}>
+                      {(td.value * 100).toFixed(2) + "%"}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          });
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .bar-chart {
+    display: grid;
+    grid-template-columns: max-content auto;
+
+    .chart-caption {
+      grid-column: span 2;
+      margin-bottom: 1rem;
+    }
+
+    .chart-subgrid {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: span 2;
+      row-gap: 0.5rem;
+    }
+
+    .chart-label {
+      font-weight: 300;
+    }
+
+    .chart-header {
+      margin-bottom: 1rem;
+    }
+
+    .chart-head {
+      font-weight: bold;
+    }
+
+    .chart-label:first-child {
+      padding-inline-end: 1rem;
+      justify-self: end;
+    }
+
+    .chart-label:not(first-child) {
+      justify-self: start;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: span 2;
+
+      align-items: center;
+
+      .chart-line {
+        height: 3rem;
+        line-height: 3rem;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        color: var(--color-neutral-900);
+        background: linear-gradient(
+          to right,
+          var(--color-neutral-700) calc(var(--size) * 100%),
+          transparent calc(var(--size) * 100%)
+        );
+        padding-left: calc(var(--size) * 100% + 0.5rem);
+      }
+    }
+  }
+</style>
+
+<script src="/gsap/minified/gsap.min.js" defer></script>
+<script src="/gsap/minified/ScrollTrigger.min.js" defer></script>
+
+<script defer define:vars={{ chartId }}>
+  window.addEventListener("load", () => {
+    let mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      let q = gsap.utils.selector("#" + chartId);
+      document.getElementById(chartId).style.opacity = 0;
+
+      gsap.to("#" + chartId, {
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: "#" + chartId,
+          start: "top bottom",
+        },
+      });
+
+      q(".chart-line").forEach((el) => {
+        toValue = getComputedStyle(el).getPropertyValue("--size");
+
+        gsap.fromTo(
+          el,
+          { "--size": 0 },
+          {
+            "--size": toValue,
+            stagger: 0.2,
+            duration: 1,
+            scrollTrigger: {
+              trigger: "#" + chartId,
+              start: "top bottom",
+            },
+          }
+        );
+      });
+    });
+  });
+</script>
