@@ -30,8 +30,14 @@ const { blok } = Astro.props;
     grid-template-columns: 1fr 1fr;
     place-content: space-around;
     column-gap: 1.5rem;
+    row-gap: 3rem;
   }
 
-  .column {
+  /* Values from Webflow */
+  /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
+  @media (width < 991px) {
+    .columns--two {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
