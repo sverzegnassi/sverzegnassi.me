@@ -6,7 +6,7 @@ const { blok } = Astro.props;
 ---
 
 <section {...storyblokEditable(blok)}>
-  <div class="columns--two">
+  <div class="columns--two" class:list={blok.is_full_width && ["full-width"]}>
     <div>
       {
         blok.column_left?.map((blok: any) => {

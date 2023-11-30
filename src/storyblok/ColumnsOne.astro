@@ -1,0 +1,16 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)}>
+  <div class:list={blok.is_full_width && ["full-width"]}>
+    {
+      blok.content?.map((blok: any) => {
+        return <StoryblokComponent blok={blok} />;
+      })
+    }
+  </div>
+</section>
