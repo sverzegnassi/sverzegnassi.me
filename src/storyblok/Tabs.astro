@@ -72,7 +72,7 @@ const { blok } = Astro.props;
     row-gap: 0.33rem;
 
     background-color: var(--color-neutral-200);
-    border-radius: 5rem;
+    border-radius: 2.5rem;
   }
 
   .tab-button {
@@ -95,5 +95,11 @@ const { blok } = Astro.props;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
+  }
+
+  @media (width < 478px) {
+    .tablist {
+      display: block;
+    }
   }
 </style>
