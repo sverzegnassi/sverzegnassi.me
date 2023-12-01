@@ -3,8 +3,7 @@ import { storyblokEditable } from "@storyblok/astro";
 import DetailsBox from "../components/DetailsBox.astro";
 import StoryblokImage from "../components/StoryblokImage.astro";
 import LinkResolver from "../components/LinkResolver.astro";
-import RichText from "./RichText.astro";
-
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props;
 ---
@@ -44,22 +43,6 @@ const { blok } = Astro.props;
     </div>
     <div class="details"><DetailsBox blok={blok} /></div>
   </header>
-</div>
-
-<div class="section">
-  <div class="content">
-    <div class="prose">
-      <RichText blok={blok} />
-    </div>
-
-    <div class="multimedia">
-      {
-        blok.multimedia.map((img: any) => (
-          <StoryblokImage url={img.filename} alt={img.alt} lazyload={true} maxWidth={1024} />
-        ))
-      }
-    </div>
-  </div>
 </div>
 
 <style>
@@ -192,3 +175,10 @@ const { blok } = Astro.props;
     }
   }
 </style>
+
+{
+  blok.blocks?.map((blok: any) => {
+    console.log(blok);
+    return <StoryblokComponent blok={blok} />;
+  })
+}
