@@ -89,10 +89,10 @@ hr {
 a {
   text-decoration-color: var(--color-link-900);
   text-underline-offset: 3px;
-  color: var(--color-neutral-900);
+  color: var(--color-neutral-800);
 
   &:visited {
-    color: var(--color-neutral-900);
+    color: var(--color-neutral-800);
     text-decoration-color: var(--color-link-900);
   }
 
@@ -241,7 +241,7 @@ button, .button {
   border-radius: 0;
 
   background-color: transparent;
-  color: var(--color-neutral-900);
+  color: var(--color-neutral-800);
 
   &:hover {
     background-color: var(--color-neutral-300);
