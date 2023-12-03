@@ -3,8 +3,6 @@ interface Props {
   linkBlock: any;
 }
 
-import ExternalLinkIcon from "../components/ExternalLinkIcon.astro";
-
 const { linkBlock } = Astro.props;
 ---
 
@@ -12,11 +10,33 @@ const { linkBlock } = Astro.props;
   () => {
     const link = linkBlock.link;
 
+    /* HeroIcons
+     *   - URL: https://heroicons.com/
+     *   - Source Code: https://github.com/tailwindlabs/heroicons
+     *   - License: MIT
+     */
+    const heroIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+        />
+      </svg>
+    );
+
     switch (link.linktype) {
       case "url": // External URL
         return (
           <a
-            class={ link.styleAs }
+            class={link.styleAs}
             href={`${linkBlock.link.url}`}
             rel={link.rel || "noopener nofollow"}
             target={link.target}
@@ -24,7 +44,7 @@ const { linkBlock } = Astro.props;
             aria-label={link["aria-label"] || `${linkBlock.title} (external link: opens in a new window)`}
           >
             {linkBlock.title}
-            <ExternalLinkIcon />
+            <Fragment set:html={heroIcon} />
           </a>
         );
       case "email":
