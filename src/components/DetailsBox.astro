@@ -1,5 +1,5 @@
 ---
-import TechnologyBadge from "./TechnologyBadge.astro";
+import Badge from "./Badge.astro";
 
 interface Props {
   blok: any;
@@ -27,7 +27,7 @@ const { blok } = Astro.props;
   <div class="caption-box">
     <span class="caption">Technologies</span>
     <div class="tech-box text-small">
-      {blok.technologies?.map((tech: any) => <TechnologyBadge name={tech.name} image={tech.content?.logo?.filename} />)}
+      {blok.technologies?.map((tech: any) => <Badge name={tech.name} image={tech.content?.logo?.filename} />)}
     </div>
   </div>
 </div>
