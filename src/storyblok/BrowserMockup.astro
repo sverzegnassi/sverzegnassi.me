@@ -1,0 +1,236 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import { Debug } from "astro:components";
+
+const { blok } = Astro.props;
+---
+
+<div {...storyblokEditable(blok)}>
+  {
+    blok.type == "desktop" && (
+      <picture class="fake-browser">
+        <div class="appbar">
+          <span class="search-bar">{blok.fake_url}</span>
+        </div>
+        <div class="browser--content">
+          <img
+            class="screenshot"
+            alt={blok.picture.alt}
+            src={`${blok.picture.filename}`}
+            loading="lazy" 
+          />
+        </div>
+        <figcaption>{blok.picture.title}</figcaption>
+      </picture>
+    )
+  }
+
+  {
+    blok.type == "mobile" && (
+      <div class="fake-browser--mobile">
+        <div class="appbar">
+          <span class="search-bar">{blok.fake_url}</span>
+        </div>
+        <div class="browser--content">
+          <img
+            class="screenshot"
+            alt={blok.picture.alt}
+            src={`${blok.picture.filename}`}
+            loading="lazy" 
+          />
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .fake-browser {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border: 1px solid var(--color-neutral-300);
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    box-shadow: 0 25px 50px -12px rgb(255 255 255 / 0.1);
+    position: relative;
+
+    & > figcaption {
+      position: absolute;
+      bottom: -2rem;
+      left: 0;
+      font-size: .9rem;
+    }
+
+    & > .appbar {
+      width: 100%;
+      height: 48px;
+      background-color: var(--color-neutral-700);
+      padding: 0 16px;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
+      position: relative;
+      column-gap: 16px;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        position: absolute;
+        content: "";
+        left: 16;
+        top: 16;
+        height: 12px;
+        width: 12px;
+
+        background-color: var(--color-neutral-500);
+        box-shadow:
+          0px 0px 0 0 var(--color-neutral-300),
+          20px 0px 0 0 var(--color-neutral-300),
+          40px 0px 0 0 var(--color-neutral-300);
+        border-radius: 50%;
+      }
+
+      & > .search-bar {
+        margin: 0 auto;
+        width: 50%;
+        height: 32px;
+
+        background-color: var(--color-neutral-200);
+        border-radius: 3px;
+
+        display: flex;
+        align-items: baseline;
+        padding: 0 12px;
+
+        color: var(--color-neutral-800);
+        font-size: 0.8em;
+        line-height: 32px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    & > .browser--content {
+      flex-grow: 1;
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+
+      & > .screenshot {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+</style>
+
+<style>
+  .fake-browser--mobile {
+    margin: 0 auto;
+    max-width: 320px;
+    border: 12px solid var(--color-neutral-300);
+    border-top: 48px solid var(--color-neutral-300);
+    flex-direction: column;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgb(255 255 255 / 0.15);
+    position: relative;
+    height: auto;
+    aspect-ratio: 9/18.5;
+    box-sizing: content-box;
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 6rem;
+      height: 0.33rem;
+      left: 50%;
+      top: -24px;
+      transform: translateX(-50%);
+      background-color: var(--color-neutral-100);
+      z-index: 1000;
+      border-radius: 0.5rem;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      width: 0.33rem;
+      height: 4rem;
+      right: -0.99rem;
+      top: 4rem;
+      background-color: var(--color-neutral-300);
+    }
+
+    & > .appbar {
+      width: 100%;
+      height: 48px;
+      background-color: var(--color-neutral-700);
+      border-top-left-radius: .66rem;
+      border-top-right-radius: .66rem;
+      padding: 0 16px;
+      position: relative;
+      column-gap: 16px;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-neutral-300);
+        z-index: -10;
+        top: 0;
+        left: 0;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-neutral-300);
+        z-index: -10;
+        top: 0;
+        right: 0;
+      }
+
+      & > .search-bar {
+        margin: 0 auto;
+        height: 32px;
+
+        background-color: var(--color-neutral-200);
+        border-radius: 3px;
+        padding: 0 12px;
+        color: var(--color-neutral-800);
+        font-size: 0.8em;
+        line-height: 32px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    & > .browser--content {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      border-bottom-left-radius: .66rem;
+      border-bottom-right-radius: .66rem;
+
+      & > .screenshot {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+</style>
