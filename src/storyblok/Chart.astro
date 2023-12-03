@@ -6,7 +6,7 @@ const { data, caption } = blok;
 ---
 
 <div>
-  <table class="bar-chart" id={chartId}>
+  <table class="bar-chart text-small" id={chartId}>
     <caption class="chart-caption">{caption}</caption>
     <thead class="chart-subgrid chart-header">
       <tr class="chart-row">
@@ -50,14 +50,14 @@ const { data, caption } = blok;
 
     .chart-caption {
       grid-column: span 2;
-      margin-bottom: 1rem;
+      margin-bottom: var(--s-md);
     }
 
     .chart-subgrid {
       display: grid;
       grid-template-columns: subgrid;
       grid-column: span 2;
-      row-gap: 0.5rem;
+      row-gap: var(--s-sm);
     }
 
     .chart-label {
@@ -65,7 +65,7 @@ const { data, caption } = blok;
     }
 
     .chart-header {
-      margin-bottom: 1rem;
+      margin-bottom: var(--s-sm);
     }
 
     .chart-head {
@@ -73,7 +73,7 @@ const { data, caption } = blok;
     }
 
     .chart-label:first-child {
-      padding-inline-end: 1rem;
+      padding-inline-end: var(--s-md);
       justify-self: end;
     }
 
@@ -89,10 +89,8 @@ const { data, caption } = blok;
       align-items: center;
 
       .chart-line {
-        height: 3rem;
-        line-height: 3rem;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+        height: var(--s-xl);
+        line-height: var(--s-xl);
         color: var(--color-neutral-800);
         background: linear-gradient(
           to right,
@@ -124,6 +122,7 @@ const { data, caption } = blok;
         scrollTrigger: {
           trigger: "#" + chartId,
           start: "top bottom",
+          ease: "circ.out",
         },
       });
 

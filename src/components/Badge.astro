@@ -25,25 +25,25 @@ const { name, image } = Astro.props;
   .tech-badge {
     display: inline-flex;
     align-items: center;
-    column-gap: .5rem;
+    column-gap: var(--s-xs);
 
     background-color: var(--color-neutral-200);
-    border-radius: 2rem;
+    border-radius: 1.5rem;
     height: 1.5rem;
-    padding: 0 .25rem;
+    padding: 0 var(--s-xs);
 
     & > img {
       background-color: rgba(255, 255, 255, .05);
       border-radius: .75rem;
 
-      padding: .25rem;
-      margin-left: -0.25rem;
+      padding: var(--s-xs);
+      margin-left: calc(var(--s-xs) * -1);
       height: 100%;
       min-width: 1.5rem;
     }
 
     & > span {
-      padding-right: .5rem;
+      padding-right: var(--s-xs);
     }
   }
 </style>

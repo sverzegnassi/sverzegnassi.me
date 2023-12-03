@@ -72,14 +72,18 @@ const { coverImageUrl, coverImageAlt, coverImageBackground, title, description, 
     display: grid;
     grid-template-rows: subgrid;
 
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--s-xl);
 
     .el {
       grid-row: 2 / 3;
-      padding: 1.5rem 1rem;
+      padding: var(--s-md);
+      margin-top: var(--s-md);
+      margin-bottom: var(--s-md);
+      margin-left: var(--s-sm);
+      margin-right: var(--s-sm);
 
       & > * + p {
-        margin-top: .5rem;
+        margin-top: var(--s-xs);
       }
 
       & > p {
@@ -89,15 +93,28 @@ const { coverImageUrl, coverImageAlt, coverImageBackground, title, description, 
 
     .link {
       grid-row: 3 / 4;
-      padding: 1rem;
-      margin-top: 1rem;
+      padding: var(--s-md);
+      margin-left: var(--s-sm);
+      margin-right: var(--s-sm);
+      margin-bottom: var(--s-md);
     }
 
     .img-wrapper {
       grid-row: 1 / 2;
       overflow: hidden;
-      height: 24rem;
+      height: 40dvh;
       position: relative;
+    }
+
+    @media (width < 991px) {
+      .el {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .link {
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
 </style>
 

@@ -90,9 +90,12 @@ const sourceCodeLink = data?.story?.content?.source_code_link[0]
 
 <style>
   footer {
-    margin-top: 4rem;
+    margin-top: var(--s-2xl);
     background-color: var(--color-neutral-200);
-    padding: 4rem 2rem 2rem 2rem;
+    padding-top: var(--s-2xl);
+    padding-left: var(--s-xl);
+    padding-right: var(--s-xl);
+    padding-bottom: var(--s-xl);
   }
 
   .main {
@@ -113,21 +116,21 @@ const sourceCodeLink = data?.story?.content?.source_code_link[0]
 
   .made-with--section {
     display: flex;
-    column-gap: 4rem;
+    column-gap: var(--s-2xl);
   }
 
   .made-with {
     flex-grow: 1;
     display: inline-flex;
     align-items: center;
-    column-gap: 1rem;
-    row-gap: 1rem;
+    column-gap: var(--s-md);
+    row-gap: var(--s-md);
   }
 
   .logo {
     width: auto;
     height: 1.5rem;
-    padding: 0 1rem;
+    padding: 0 var(--s-md);
   }
 
   /* Values from Webflow */

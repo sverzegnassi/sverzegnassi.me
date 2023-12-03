@@ -40,17 +40,17 @@ const { blok } = Astro.props;
     flex-direction: column;
     justify-content: center;
     min-height: 43vh;
-    padding: 1rem;
+    padding: var(--s-md);
 
     & > .header-links {
       display: flex;
-      column-gap: 1rem;
+      column-gap: var(--s-md);
     }
   }
 
   @media (width < 991px) {
     .header-card {
-      padding: 1.5rem;
+      padding: var(--s-xl);
     }
   }
 </style>

@@ -47,7 +47,7 @@ const { entriesList, linkTextDefault } = Astro.props;
         grid-template-columns: 1fr 1fr;
       }
     }
-    
+
     @media (width < 478px) {
       & {
         grid-template-columns: 1fr;
@@ -62,21 +62,19 @@ const { entriesList, linkTextDefault } = Astro.props;
   */
   .collection-grid > .card > .img-wrapper > div > picture > img {
     transition-property: all;
-    transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
-    transition-duration: 125ms;
+    transition-timing-function: var(--a-easeOut);
+    transition-duration: var(--a-duration-fast);
     transform: perspective(500px) translateZ(0px);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .collection-grid > .card > .img-wrapper.highlighted > div#card-img-fg > picture > img {
-      transform: perspective(500px) translateZ(50px);
-      transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
-    }
+  .collection-grid > .card > .img-wrapper.highlighted > div#card-img-fg > picture > img {
+    transform: perspective(500px) translateZ(50px);
+    transition-timing-function: var(--a-easeOut);
+  }
 
-    .collection-grid > .card > .img-wrapper.highlighted > div#card-img-bg > picture > img {
-      transform: perspective(500px) translateZ(10px);
-      transition-timing-function: cubic-bezier(0.11, 0, 0.5, 0);
-    }
+  .collection-grid > .card > .img-wrapper.highlighted > div#card-img-bg > picture > img {
+    transform: perspective(500px) translateZ(10px);
+    transition-timing-function: var(--a-easeOut);
   }
 </style>
 
@@ -85,6 +83,8 @@ const { entriesList, linkTextDefault } = Astro.props;
 <script is:inline defer>
   window.addEventListener("load", () => {
     let mm = gsap.matchMedia();
+
+    let slowDuration = gsap.getProperty("html", "--a-gsap-slow");
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.registerPlugin(ScrollTrigger);
@@ -98,7 +98,8 @@ const { entriesList, linkTextDefault } = Astro.props;
             start: "top bottom",
           },
           translateY: "50%",
-          duration: 0.5,
+          ease: "circ.out",
+          duration: slowDuration,
         });
       });
     });

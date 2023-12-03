@@ -45,6 +45,14 @@ const { blok } = Astro.props;
   </header>
 </div>
 
+{
+  blok.blocks?.map((blok: any) => {
+    console.log(blok);
+    return <StoryblokComponent blok={blok} />;
+  })
+}
+
+
 <style>
   .header-wrapper {
     padding-top: 0;
@@ -65,15 +73,19 @@ const { blok } = Astro.props;
     flex-direction: column;
     justify-content: center;
     min-height: 43vh;
-    padding: 1rem;
+    padding: var(--s-2xl);
 
     & > .el {
-      margin-bottom: 6rem;
+      margin-bottom: var(--s-2xl);
+      
+      h1 {
+        margin-bottom: var(--s-xs);
+      }
     }
 
     & > .header-links {
       display: flex;
-      column-gap: 1rem;
+      column-gap: var(--s-md);
     }
   }
 
@@ -83,44 +95,16 @@ const { blok } = Astro.props;
   }
 
   .details {
-    padding-top: 3rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 3rem;
-  }
-
-  .multimedia {
-    display: block;
-
-    & > * {
-      width: 100%;
-      height: auto;
-      border: 1px solid var(--color-neutral-200);
-    }
+    padding-top: var(--s-2xl);
+    padding-left: var(--s-xl);
+    padding-right: var(--s-xl);
   }
 
   /* Values from Webflow */
   /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
   @media (width < 991px) {
-    .content {
-      grid-template-columns: 1fr;
-    }
-
-    .multimedia {
-      order: 0;
-    }
-
-    .prose {
-      order: 1;
-    }
-
     .header-card {
-      padding: 1.5rem;
+      padding: var(--s-xl);
     }
   }
 
@@ -137,20 +121,20 @@ const { blok } = Astro.props;
       grid-row: span 1;
 
       & > .el {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--s-xl);
       }
     }
   }
 
   @media (width < 478px) {
     .header-card .el {
-      margin-bottom: 3rem;
+      margin-bottom: var(--s-2xl);
     }
 
     .details {
-      padding-top: 1.5rem !important;
-      padding-left: 0.75rem !important;
-      padding-right: 0.75rem !important;
+      padding-top: var(--s-md) !important;
+      padding-left: var(--s-sm) !important;
+      padding-right: var(--s-sm) !important;
     }
   }
 </style>
@@ -170,15 +154,8 @@ const { blok } = Astro.props;
       }
 
       & > .button + a {
-        padding: 0.75rem 1.5rem;
+        padding: var(--s-md) var(--s-2xl);
       }
     }
   }
 </style>
-
-{
-  blok.blocks?.map((blok: any) => {
-    console.log(blok);
-    return <StoryblokComponent blok={blok} />;
-  })
-}

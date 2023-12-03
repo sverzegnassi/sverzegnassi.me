@@ -10,22 +10,22 @@ const { blok } = Astro.props;
 
 <div class="descriptions">
   <div class="caption-box">
-    <span class="caption">Client</span>
+    <span class="caption text-small">Client</span>
     {blok.client}
   </div>
 
   <div class="caption-box">
-    <span class="caption">Year</span>
+    <span class="caption text-small">Year</span>
     {blok.year}
   </div>
 
   <div class="caption-box">
-    <span class="caption">Project type</span>
+    <span class="caption text-small">Project type</span>
     {blok.project_type?.map((v: string) => <span class="project-type--value">{v}</span>)}
   </div>
 
   <div class="caption-box">
-    <span class="caption">Technologies</span>
+    <span class="caption text-small">Technologies</span>
     <div class="tech-box text-small">
       {blok.technologies?.map((tech: any) => <Badge name={tech.name} image={tech.content?.logo?.filename} />)}
     </div>
@@ -38,29 +38,27 @@ const { blok } = Astro.props;
     align-items: center;
     align-content: center;
     grid-template-columns: 1fr 1fr;
-    row-gap: 1rem;
-    column-gap: 2rem;
-    padding: 1rem;
+    row-gap: var(--s-md);
+    column-gap: var(--s-xl);
+    padding: var(--s-md);
   }
 
   .caption-box {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--s-sm);
   }
 
   .caption {
     display: block;
-    font-size: 0.8rem;
-    letter-spacing: 0.025em;
     color: var(--color-neutral-700);
   }
 
   .tech-box {
     display: flex;
-    column-gap: 0.5rem;
-    margin-top: 0.125rem;
+    margin-top: var(--s-xs);
     flex-wrap: wrap;
-    row-gap: 0.5rem;
+    row-gap: var(--s-sm);
+    column-gap: var(--s-sm);
   }
 
   .project-type--value:not(:last-child)::after {
@@ -69,12 +67,6 @@ const { blok } = Astro.props;
 
   /* Values from Webflow */
   /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
-  @media (width < 991px) {
-  }
-
-  @media (width < 767px) {
-  }
-
   @media (width < 478px) {
     .descriptions {
       grid-template-columns: 1fr;

@@ -7,9 +7,8 @@ const { blok } = Astro.props;
 
 <section {...storyblokEditable(blok)}>
   <div x-data=`{ activePanel: 'panel_${blok.tab_panels[0]?._uid}' }`>
-    <!-- TODO: Edit aria-label -->
     <div class="tablist--wrapper">
-      <div class="tablist" role="tablist" aria-label="Sample Tabs">
+      <div class="tablist" role="tablist" aria-label="Tabs">
         {
           blok.tab_panels?.map((panel: any) => {
             return (
@@ -65,11 +64,11 @@ const { blok } = Astro.props;
     align-content: center;
     justify-content: center;
 
-    padding: 0.33rem;
-    margin: 2rem auto;
+    padding: var(--s-xs);
+    margin: var(--s-xl) auto;
 
-    column-gap: 0.33rem;
-    row-gap: 0.33rem;
+    column-gap: var(--s-xs);
+    row-gap: var(--s-xs);
 
     background-color: var(--color-neutral-200);
     border-radius: 2.5rem;
@@ -91,10 +90,6 @@ const { blok } = Astro.props;
     &:hover[aria-selected="true"] {
       background-color: var(--color-neutral-600);
     }
-
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
   }
 
   @media (width < 478px) {

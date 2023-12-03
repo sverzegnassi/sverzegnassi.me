@@ -1,6 +1,5 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import { Debug } from "astro:components";
 
 const { blok } = Astro.props;
 ---
@@ -53,15 +52,13 @@ const { blok } = Astro.props;
     display: flex;
     flex-direction: column;
     border-radius: 6px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     box-shadow: 0 25px 50px -12px rgb(255 255 255 / 0.1);
     position: relative;
 
     & > figcaption {
       position: absolute;
-      bottom: -2rem;
+      bottom: calc(var(--s-2xl) * -1);
       left: 0;
-      font-size: .9rem;
     }
 
     & > .appbar {
