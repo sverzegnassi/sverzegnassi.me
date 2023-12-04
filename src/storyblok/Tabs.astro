@@ -55,28 +55,27 @@ const { blok } = Astro.props;
 <style>
   .tablist--wrapper {
     display: flex;
-    align-content: center;
+    margin-bottom: var(--s-xl);
   }
 
   .tablist {
     display: inline-flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-
-    padding: var(--s-xs);
-    margin: var(--s-xl) auto;
-
+    margin: 0 auto;
     column-gap: var(--s-xs);
     row-gap: var(--s-xs);
 
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+
+    padding: var(--s-xs);
     background-color: var(--color-neutral-200);
-    border-radius: 2.5rem;
+    border-radius: var(--r-4xl);
   }
 
   .tab-button {
     background-color: transparent;
     color: var(--color-neutral-800);
+    flex-shrink: 0;
 
     &.active {
       background-color: var(--color-neutral-800);
@@ -89,12 +88,6 @@ const { blok } = Astro.props;
 
     &:hover[aria-selected="true"] {
       background-color: var(--color-neutral-600);
-    }
-  }
-
-  @media (width < 478px) {
-    .tablist {
-      display: block;
     }
   }
 </style>

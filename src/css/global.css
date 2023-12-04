@@ -32,6 +32,8 @@
   --r-xl: .66rem;
   --r-2xl: 1rem;
   --r-3xl: 1.5rem;
+  --r-4xl: 3rem;
+
 
   /* ANIMATIONS */
   --a-duration-fast: 165ms;
@@ -260,7 +262,7 @@ button, .button {
 
   text-decoration: none;
   
-  border-radius: 3rem;
+  border-radius: var(--r-4xl);
 
   &:hover {
       background-color: var(--color-neutral-700);
