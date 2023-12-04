@@ -247,6 +247,7 @@ section,
   outline-color: var(--color-neutral-500);
   outline-width: 3px;
   outline-offset: 3px;
+  outline-style: solid;
   z-index: 1000;
 }
 
