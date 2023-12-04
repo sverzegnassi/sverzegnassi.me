@@ -6,9 +6,9 @@ const { data, caption } = blok;
 ---
 
 <div>
-  <table class="bar-chart text-small" id={chartId}>
+  <table class="bar-chart" id={chartId}>
     <caption class="chart-caption">{caption}</caption>
-    <thead class="chart-subgrid chart-header">
+    <thead class="chart-subgrid chart-header text-small">
       <tr class="chart-row">
         {
           data.thead?.map((th: any) => {
@@ -17,7 +17,7 @@ const { data, caption } = blok;
         }
       </tr>
     </thead>
-    <tbody class="chart-subgrid">
+    <tbody class="chart-subgrid text-small">
       {
         () => {
           return data.tbody?.map((tr: any) => {
@@ -113,19 +113,8 @@ const { data, caption } = blok;
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.registerPlugin(ScrollTrigger);
 
+      let slowDuration = gsap.getProperty("html", "--a-gsap-slow");
       let q = gsap.utils.selector("#" + chartId);
-      document.getElementById(chartId).style.opacity = 0;
-
-      gsap.to("#" + chartId, {
-        opacity: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: "#" + chartId,
-          start: "top bottom",
-          ease: "circ.out",
-        },
-      });
-
       q(".chart-line").forEach((el) => {
         toValue = getComputedStyle(el).getPropertyValue("--size");
 
@@ -134,8 +123,8 @@ const { data, caption } = blok;
           { "--size": 0 },
           {
             "--size": toValue,
-            stagger: 0.2,
-            duration: 1,
+            duration: slowDuration,
+            ease: "circ.out",
             scrollTrigger: {
               trigger: "#" + chartId,
               start: "top bottom",

@@ -34,6 +34,8 @@
   --r-3xl: 1.5rem;
   --r-4xl: 3rem;
 
+  /* SHADOWS */
+  --shadow-xl-white: 0 25px 50px -12px rgb(255 255 255 / 0.1);
 
   /* ANIMATIONS */
   --a-duration-fast: 165ms;
@@ -113,8 +115,9 @@ small,
   font-size: 0.889em;
 }
 
-figcaption {
+figcaption, caption {
   font-size: 0.889em;
+  font-style: italic;
 }
 
 hr {
