@@ -184,7 +184,7 @@ const { "x-data": xData } = Astro.props;
 
     transition-property: all;
     transition-timing-function: var(--a-easeOut);
-    transition-duration: var(--a-duration-brisk);
+    transition-duration: var(--a-duration-fast);
 
     visibility: hidden;
     overflow: auto;
@@ -228,6 +228,7 @@ const { "x-data": xData } = Astro.props;
     padding: 1rem;
 
     visibility: visible;
+    transition-duration: var(--a-duration-brisk);
 
     & > li {
       display: block;
