@@ -234,4 +234,15 @@ const { "x-data": xData } = Astro.props;
       display: block;
     }
   }
+
+  @media (width < 767px) {
+    .navbar {
+      margin-left: var(--s-xs);
+      margin-right: var(--s-xs);
+    }
+
+    .navbar-logo {
+      padding: 0 var(--s-xs);
+    }
+  }
 </style>
