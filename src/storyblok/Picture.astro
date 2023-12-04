@@ -1,0 +1,16 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokImage from "../components/StoryblokImage.astro";
+
+const { blok } = Astro.props;
+---
+
+<StoryblokImage
+  url={ blok.picture.filename }
+  alt={ blok.picture.alt }
+  caption={ blok.picture.caption }
+  lazyload={ true }
+
+  {...storyblokEditable(blok)}
+/>
+  
