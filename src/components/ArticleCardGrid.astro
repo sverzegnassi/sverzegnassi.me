@@ -1,4 +1,5 @@
 ---
+import { Debug } from "astro/components";
 import ArticleCard from "./ArticleCard.astro";
 interface Props {
   entriesList: {
@@ -18,6 +19,8 @@ interface Props {
 const { entriesList, linkTextDefault } = Astro.props;
 ---
 
+<Debug {entriesList} />
+
 <div class="collection-grid">
   {
     entriesList.map((entry) => (
@@ -27,7 +30,7 @@ const { entriesList, linkTextDefault } = Astro.props;
         coverImageBackground={entry.content?.card_background?.filename}
         title={entry.content?.title}
         description={entry.content?.description}
-        linkHref={entry.full_slug}
+        linkHref={`/${entry.full_slug}`}
         linkText={linkTextDefault}
       />
     ))
