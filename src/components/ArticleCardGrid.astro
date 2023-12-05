@@ -1,5 +1,4 @@
 ---
-import { Debug } from "astro/components";
 import ArticleCard from "./ArticleCard.astro";
 interface Props {
   entriesList: {
@@ -18,8 +17,6 @@ interface Props {
 
 const { entriesList, linkTextDefault } = Astro.props;
 ---
-
-<Debug {entriesList} />
 
 <div class="collection-grid">
   {
