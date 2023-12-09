@@ -156,11 +156,50 @@ a {
   }
 }
 
+/** CODE **/
+code, kbd, samp, pre {
+  font-family: "IBM Plex Mono";
+}
+
 pre {
+  position: relative;
+  background-color: var(--color-neutral-200);
+  overflow: auto;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--color-neutral-400);
+  max-height: 70dvh;
+
+  padding-top: var(--s-3xl);
+  padding-left: var(--s-sm);
+  padding-right: var(--s-sm);
+  padding-bottom: var(--s-xs);
+
+  & > code {
+    border: none; 
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--s-2xl);
+    line-height: var(--s-2xl);
+    content: "Code";
+    display: block;
+    background-color: var(--color-neutral-300);
+    padding-left: var(--s-sm);
+    padding-right: var(--s-sm);
+    font-size: 0.889em;
+  }
+}
+
+code {
   background-color: var(--color-neutral-200);
   padding: var(--s-xs);
-  border-radius: 3px;
-  overflow-x: auto;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--color-neutral-400);
+  font-size: 0.889em;
 }
 
 .not-prose h1,
