@@ -10,7 +10,18 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
-// TODO: Check how Storyblok process images. We might need to add lazyload
+// Taken from: https://github.com/storyblok/storyblok-js-client/blob/main/src/schema.ts#L4
+const pick = function (attrs, allowed) {
+	const h = {}
+
+	for (const key in attrs) {
+		const value = attrs[key]
+		if (allowed.indexOf(key) > -1 && value !== null) {
+			h[key] = value
+		}
+	}
+	return h
+}
 
 export function myRichTextSchema() {
   // Customize default Storyblok Rich text schema
@@ -30,6 +41,7 @@ export function myRichTextSchema() {
     };
   };
 
+  // Fix link attributes
   mySchema.marks.link = function (node) {
     if (!node.attrs) {
       return {
@@ -89,6 +101,26 @@ export function myRichTextSchema() {
       ],
     };
   };
+
+
+
+
+  // Customize image node
+  mySchema.nodes.image = function (node) {
+    return {
+      html: `
+        <figure>
+          <img
+            ${node.attrs.src ? 'src="' + node.attrs.src + '"' : ""}
+            ${node.attrs.alt ? 'alt="' + node.attrs.alt + '"' : ""}
+            loading="lazy" 
+            style="max-width: 100%; height: auto;"
+          >
+          ${node.attrs.title ? '<figcaption>' + node.attrs.title + '</figcaption>' : ""}
+        </figure>
+      `
+    }
+  }
 
   return mySchema;
 }
