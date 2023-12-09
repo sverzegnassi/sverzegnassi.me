@@ -15,11 +15,12 @@ const { linkBlock } = Astro.props;
      *   - Source Code: https://github.com/tailwindlabs/heroicons
      *   - License: MIT
      */
+    // WORKAROUND: See note in global.css about a:not(.navbar-logo)>svg
     const heroIcon = (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
-        viewBox="0 0 24 24"
+        viewBox="0 0 24 17"
         stroke-width="1.5"
         stroke="currentColor"
         aria-hidden="true"

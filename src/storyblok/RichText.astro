@@ -45,7 +45,8 @@ const renderedRichText = renderRichText(blok.content, {
              */
             var svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svgIcon.setAttribute("fill", "none");
-            svgIcon.setAttribute("viewBox", "0 0 24 24");
+            // WORKAROUND: See note in global.css about a:not(.navbar-logo)>svg
+            svgIcon.setAttribute("viewBox", "0 0 24 17");
             svgIcon.setAttribute("stroke-width", "1.5");
             svgIcon.setAttribute("stroke", "currentColor");
             svgIcon.setAttribute("aria-hidden", "true");

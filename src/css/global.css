@@ -146,13 +146,18 @@ a {
   }
 
   /* Style for icons inside <a> */
-  display: inline-flex;
-  align-items: center;
-  column-gap: var(--s-xs);
-
+  /*
+      WORKAROUND: Center to the baseline
+      We removed 7px to the viewBox. Needs to add `overflow: visible` to compensate
+      
+      Ref:
+        https://stackoverflow.com/questions/74602512/specify-baseline-position-in-svg#answer-74603388
+  */
   &:not(.navbar-logo)>svg {
     width: 1rem;
     height: 1rem;
+    margin-left: var(--s-xs);
+    overflow: visible;
   }
 }
 
