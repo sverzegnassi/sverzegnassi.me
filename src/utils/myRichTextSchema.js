@@ -1,5 +1,6 @@
 import { RichTextSchema } from "@storyblok/astro";
 import cloneDeep from "clone-deep";
+import { generateHeadingId } from "./storyblokUtils";
 
 function escapeHtml(unsafe) {
   return unsafe
@@ -102,9 +103,6 @@ export function myRichTextSchema() {
     };
   };
 
-
-
-
   // Customize image node
   mySchema.nodes.image = function (node) {
     return {
@@ -119,6 +117,13 @@ export function myRichTextSchema() {
           ${node.attrs.title ? '<figcaption>' + node.attrs.title + '</figcaption>' : ""}
         </figure>
       `
+    }
+  }
+
+  // Add `id` attribute to headings. Quite hackish...
+  mySchema.nodes.heading = function (node) {
+    return {
+      tag: `h${node.attrs.level} id="${generateHeadingId(node)}"`,
     }
   }
 

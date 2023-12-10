@@ -1,6 +1,7 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import RichText from "./RichText.astro";
+import TableOfContents from "../components/TableOfContents.astro";
 
 const { blok } = Astro.props;
 ---
@@ -25,6 +26,7 @@ const { blok } = Astro.props;
   </header>
 
   <div class="section">
+    <TableOfContents docBlock={blok.content} />
     <RichText blok={blok} />
   </div>
 </article>
