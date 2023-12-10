@@ -1,0 +1,28 @@
+---
+let urlParts = Astro.url.pathname.split("/").filter(s => s)
+---
+
+<a class="offscreen-shortcut" href="#main-content">Skip to main content</a>
+{
+    (urlParts.shift() == "posts" && urlParts.length > 0) &&
+    <a class="offscreen-shortcut" href="#article-start">Start reading the article</a>
+}
+
+
+<style>
+  .offscreen-shortcut {
+    position: absolute;
+    top: -1000em;
+  }
+
+  .offscreen-shortcut:focus {
+    position: fixed;
+    top: var(--s-xs);
+    left: var(--s-xs);
+    z-index: 999;
+    
+    padding: var(--s-md);
+    background-color: var(--color-neutral-200);
+    color: var(--color-neutral-800);
+  }
+</style>

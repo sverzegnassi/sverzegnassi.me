@@ -27,7 +27,9 @@ const { blok } = Astro.props;
 
   <div class="section full-width">
     <TableOfContents docBlock={blok.content} />
-    <RichText blok={blok} />
+    <div id="article-start">
+      <RichText blok={blok} />
+    </div>
   </div>
 </article>
 
