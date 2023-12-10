@@ -2,7 +2,7 @@
 import { generateHeadingId } from "../utils/storyblokUtils";
 
 interface Props {
-  docBlock: any;        // Storyblok's block type "doc"
+  docBlock: any; // Storyblok's block type "doc"
   minLevel?: number;
   maxLevel?: number;
 }
@@ -20,18 +20,20 @@ const headings = docBlock.content
   });
 
 function rawHtmlLiComponent(slug: string, text: string) {
-  return `<li><a href=${ "#" + slug }>${ text }</a></li>`;
+  return `<li><a href=${"#" + slug}>${text}</a></li>`;
 }
 
 function generateTocEntries(array: any[]) {
   let rawHtml = "";
+  let olOpened = 0;
 
   rawHtml += array
     .map((entry: any, index: number) => {
       const prevEntry = array[index - 1];
 
       if (!prevEntry || entry.level > prevEntry.level) {
-        return '<ol>' + rawHtmlLiComponent(entry.slug, entry.text);
+        olOpened += 1;
+        return "<ol>" + rawHtmlLiComponent(entry.slug, entry.text);
       }
 
       if (entry.level == prevEntry.level) {
@@ -39,12 +41,15 @@ function generateTocEntries(array: any[]) {
       }
 
       if (entry.level < prevEntry.level) {
-        return '</ol>' + rawHtmlLiComponent(entry.slug, entry.text);
+        olOpened -= 1;
+        return "</ol>" + rawHtmlLiComponent(entry.slug, entry.text);
       }
     })
     .join("");
 
-  rawHtml += '</ol>';
+  for (let i = 0; i < olOpened; i++) {
+    rawHtml += "</ol>";
+  }
 
   return rawHtml;
 }
