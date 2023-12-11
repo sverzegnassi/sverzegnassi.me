@@ -11,19 +11,6 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
-// Taken from: https://github.com/storyblok/storyblok-js-client/blob/main/src/schema.ts#L4
-const pick = function (attrs, allowed) {
-	const h = {}
-
-	for (const key in attrs) {
-		const value = attrs[key]
-		if (allowed.indexOf(key) > -1 && value !== null) {
-			h[key] = value
-		}
-	}
-	return h
-}
-
 export function myRichTextSchema() {
   // Customize default Storyblok Rich text schema
   let mySchema = cloneDeep(RichTextSchema);
