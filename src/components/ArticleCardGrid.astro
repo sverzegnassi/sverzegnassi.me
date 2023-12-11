@@ -92,15 +92,20 @@ const { entriesList, linkTextDefault } = Astro.props;
       gsap.utils.toArray(".card").forEach((card) => {
         const q = gsap.utils.selector(card);
 
-        gsap.from(q(".img-wrapper #card-img-fg"), {
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
+        gsap.fromTo(
+          q(".img-wrapper #card-img-fg"),
+          {
+            translateY: "50%",
           },
-          translateY: "50%",
-          ease: "circ.out",
-          duration: slowDuration,
-        });
+          {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom",
+            },
+            translateY: "0%",
+            duration: slowDuration,
+          }
+        );
       });
     });
   });
