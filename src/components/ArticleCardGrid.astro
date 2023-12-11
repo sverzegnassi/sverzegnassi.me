@@ -7,7 +7,7 @@ interface Props {
       card_foreground: { filename: string | undefined; alt: string | undefined };
       cover_image: { filename: string | undefined; alt: string | undefined };
       title: string;
-      description: string | undefined;
+      excerpt: string | undefined;
     };
     full_slug: string | undefined;
   }[];
@@ -26,7 +26,7 @@ const { entriesList, linkTextDefault } = Astro.props;
         coverImageAlt={entry.content?.card_foreground?.alt || entry.content?.cover_image?.alt}
         coverImageBackground={entry.content?.card_background?.filename}
         title={entry.content?.title}
-        description={entry.content?.description}
+        description={entry.content?.excerpt}
         linkHref={`/${entry.full_slug}`}
         linkText={linkTextDefault}
       />

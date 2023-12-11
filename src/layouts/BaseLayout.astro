@@ -28,8 +28,8 @@ const coverImage = story.content?.cover_image?.filename;
 <html lang="en">
   <head>
     <BaseHead
-      title={story ? story.name + " — " + title : title}
-      description={story ? story.description : description}
+      title={story ? (story.content?.title || story.name) + " — " + title : title}
+      description={story && story.content?.excerpt}
       image={coverImage}
     />
   </head>
