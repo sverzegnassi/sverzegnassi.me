@@ -14,7 +14,7 @@ const { blok } = Astro.props;
       <div class="header-card">
         <div class="el">
           <h1>{blok.title}</h1>
-          {blok.description && <p class="text-small">{blok.description}</p>}
+          {blok.excerpt && <p class="text-small">{blok.excerpt}</p>}
         </div>
 
         {
