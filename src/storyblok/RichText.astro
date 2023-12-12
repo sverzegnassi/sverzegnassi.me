@@ -11,9 +11,33 @@ const renderedRichText = renderRichText(blok.content, {
 
 <div class="rich-text" set:html={renderedRichText} {...storyblokEditable(blok)} />
 
-<style>
+<style is:inline>
   .rich-text {
     max-width: var(--max-line-length);
+  }
+
+  .rich-text--img {
+    max-width: 100%;
+    height: auto;
+    
+    font-style: italic;
+    vertical-align: middle;
+    shape-margin: var(--s-sm);
+    
+    background-color: var(--color-neutral-200);
+    background-size: 3rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    /*
+        Nice tool to convert SVG to data URI:
+          https://www.svgbackgrounds.com/tools/svg-to-css/
+    */
+    /* HeroIcons
+    *   - URL: https://heroicons.com/
+    *   - Source Code: https://github.com/tailwindlabs/heroicons
+    *   - License: MIT
+    */
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>')
   }
 </style>
 

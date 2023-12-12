@@ -1,6 +1,7 @@
 import { RichTextSchema } from "@storyblok/astro";
 import cloneDeep from "clone-deep";
 import { generateHeadingId } from "./storyblokUtils";
+import { imageDimensions } from "./storyblokUtils";
 
 function escapeHtml(unsafe) {
   return unsafe
@@ -92,14 +93,18 @@ export function myRichTextSchema() {
 
   // Customize image node
   mySchema.nodes.image = function (node) {
+    const imgSize = imageDimensions(node.attrs.src)
+
     return {
       html: `
         <figure>
           <img
-            ${node.attrs.src ? 'src="' + node.attrs.src + '"' : ""}
+            ${node.attrs.src ? 'src="' + node.attrs.src + '/m/"' : ""}
             ${node.attrs.alt ? 'alt="' + node.attrs.alt + '"' : ""}
             loading="lazy" 
-            style="max-width: 100%; height: auto;"
+            width="${imgSize.width}"
+            height="${imgSize.height}"
+            class="rich-text--img"
           >
           ${node.attrs.title ? '<figcaption>' + node.attrs.title + '</figcaption>' : ""}
         </figure>
