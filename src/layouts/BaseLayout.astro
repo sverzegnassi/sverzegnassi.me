@@ -18,8 +18,6 @@ const { data } = await storyblokApi.get("cdn/stories/config", {
 });
 
 const title = data?.story?.content?.site_title;
-const description = data?.story?.content?.site_description;
-
 const { story } = Astro.props;
 
 const coverImage = story.content?.cover_image?.filename;
