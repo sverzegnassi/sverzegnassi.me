@@ -1,11 +1,13 @@
 ---
+import { storyblokEditable } from "@storyblok/astro";
+
 const { blok } = Astro.props;
 const chartId = "chart_" + crypto.getRandomValues(new Uint32Array(4)).join("");
 
 const { data, caption } = blok;
 ---
 
-<div>
+<div {...storyblokEditable(blok)}>
   <table class="bar-chart" id={chartId}>
     <caption class="chart-caption">{caption}</caption>
     <thead class="chart-subgrid chart-header text-small">
