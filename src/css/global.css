@@ -15,12 +15,28 @@
   --color-linkVisited-100: #a132d3;
   --color-linkVisited-900: #c95cfb;
 
+  --color-success-300: #00f38e;
+  --color-success-500: #00834a;
+  --color-success-700: #004525;
+
+  --color-error-300: #ffc6ca;
+  --color-error-500: #e2004e;
+  --color-error-700: #7c0026;
+
+  --color-warning-300: #fbd024;
+  --color-warning-500: #897000;
+  --color-warning-700: #483a00;
+
+  --color-info-300: #c6d3ff;
+  --color-info-500: #546fb8;
+  --color-info-700: #17377d;
 
   --max-line-length: 65ch;
 
   /* SPACING */
   --s-2xs: .16rem;
-  --s-xs: .33rem; /* .44rem */
+  --s-xs: .33rem;
+  /* .44rem */
   --s-sm: .66rem;
   --s-md: 1rem;
   --s-xl: 1.5rem;
@@ -43,12 +59,12 @@
   --a-duration-brisk: 333ms;
   --a-duration-slow: 500ms;
   --a-duration-sleepy: 1000ms;
-  
+
   --a-gsap-fast: 0.165;
   --a-gsap-brisk: 0.333;
   --a-gsap-slow: 0.5;
   --a-gsap-sleepy: 1;
- 
+
   --a-easeOut: cubic-bezier(0.0, 0, 0.2, 1);
 }
 
@@ -116,7 +132,8 @@ small,
   font-size: 0.889em;
 }
 
-figcaption, caption {
+figcaption,
+caption {
   font-size: 0.889em;
   font-style: italic;
 }
@@ -163,7 +180,10 @@ a {
 }
 
 /** CODE **/
-code, kbd, samp, pre {
+code,
+kbd,
+samp,
+pre {
   font-family: "IBM Plex Mono";
 }
 
@@ -182,8 +202,8 @@ pre {
   padding-right: var(--s-sm);
   padding-bottom: var(--s-xs);
 
-  & > code {
-    border: none; 
+  &>code {
+    border: none;
   }
 
   &::before {
@@ -202,7 +222,9 @@ pre {
   }
 
   /* WORKAROUND: Responsive pre component */
-  @media (width < 991px) {  /* Webflow: tablet breakpoint */
+  @media (width < 991px) {
+
+    /* Webflow: tablet breakpoint */
     & {
       white-space: pre-wrap;
       word-break: break-all;
@@ -233,7 +255,8 @@ code {
   margin: 0;
 }
 
-b, strong {
+b,
+strong {
   font-weight: bold;
 }
 
@@ -261,7 +284,7 @@ section,
   &>.full-width {
     grid-column: full-width;
   }
- 
+
   /* Values from Webflow */
   /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
   @media (width < 767px) {
@@ -277,7 +300,9 @@ section,
 }
 
 @media (width > 1440px) {
-  section, .section {
+
+  section,
+  .section {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 
@@ -307,7 +332,8 @@ section,
 }
 
 /* BUTTON */
-button, .button {
+button,
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -320,19 +346,18 @@ button, .button {
   color: var(--color-neutral-100);
 
   text-decoration: none;
-  
+
   border-radius: var(--r-4xl);
 
   &:hover {
-      background-color: var(--color-neutral-700);
+    background-color: var(--color-neutral-700);
   }
 
   &:active {
-      scale: 0.94;
+    scale: 0.94;
   }
 
   transition-property: all;
   transition-timing-function: var(--a-easeOut);
   transition-duration: var(--a-duration-fast);
 }
-

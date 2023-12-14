@@ -1,0 +1,302 @@
+---
+import { renderRichText, storyblokEditable } from "@storyblok/astro";
+import { Debug } from "astro:components";
+import { myRichTextSchema } from "../utils/myRichTextSchema";
+
+const { blok } = Astro.props;
+
+let rawHtml = "";
+
+function parseAttributes(field: any) {
+  let rawHtml = "";
+
+  if (field.readonly) {
+    rawHtml += "readonly ";
+  }
+  if (field.required) {
+    rawHtml += "required ";
+  }
+  if (field.checked) {
+    rawHtml += "checked ";
+  }
+  if (field.multiple) {
+    rawHtml += "multiple ";
+  }
+  if (field.value) {
+    rawHtml += `value="${field.value}" `;
+  }
+  if (field.pattern) {
+    rawHtml += `pattern="${field.value}" `;
+  }
+  if (field.maxlength) {
+    rawHtml += `maxlength="${field.maxlength}" `;
+  }
+  if (field.minlength) {
+    rawHtml += `minlength="${field.minlength}" `;
+  }
+  if (field.placeholder) {
+    rawHtml += `placeholder="${field.placeholder}" `;
+  }
+  if (field.spellcheck) {
+    rawHtml += `spellcheck="${field.spellcheck}" `;
+  }
+  if (field.autocomplete) {
+    rawHtml += `autocomplete="${field.autocomplete}" `;
+  }
+  if (field.min) {
+    rawHtml += `min="${field.min}" `;
+  }
+  if (field.max) {
+    rawHtml += `max="${field.max}" `;
+  }
+  if (field.step) {
+    rawHtml += `max="${field.step}" `;
+  }
+  if (field.capture) {
+    rawHtml += `capture="${field.capture}" `;
+  }
+  if (field.step) {
+    rawHtml += `step="${field.step}" `;
+  }
+  if (field.accept) {
+    rawHtml += `accept="${field.accept}" `;
+  }
+  if (field.inputmode) {
+    rawHtml += `inputmode="${field.inputmode}" `;
+  }
+  if (field.size) {
+    rawHtml += `size="${field.size}" `;
+  }
+
+  rawHtml += `type="${field.component.split("_").pop()}" `;
+
+  return rawHtml;
+}
+
+function generateLabel(field: any) {
+  let rawHtml = "";
+  rawHtml += "<label ";
+
+  if (field.required) {
+    rawHtml += `title="Required field" `;
+  }
+
+  rawHtml += `for="${field.name}">`;
+
+  rawHtml += field.label;
+
+  if (field.required) {
+    rawHtml += `<span class="required-token">*</span>`;
+  }
+
+  rawHtml += "</label>";
+  return rawHtml;
+}
+
+function generateTag(field: any) {
+  switch (field.component) {
+    case "form_field_fieldset":
+      return "fieldset";
+    case "form_field_select":
+      return "select";
+    case "form_field_textarea":
+      return "textarea";
+    default:
+      return "input";
+  }
+}
+
+function generateFields(fields: any[]) {
+  let rawHtml = "";
+
+  fields.map((field: any) => {
+    rawHtml += `<div class="field">`;
+
+    if (field.component != "form_field_fieldset") {
+      rawHtml += generateLabel(field);
+    }
+
+    rawHtml += `<${generateTag(field)} class="form-input" id="${field.name}" name="${field.name}" `;
+
+    if (field.component != "form_field_fieldset") {
+      rawHtml += parseAttributes(field);
+    }
+
+    if (field.component == "form_field_select") {
+      rawHtml += ">";
+
+      field.options.split("\n").map((option: any) => {
+        rawHtml += `<option value="${option}">${option}</option>`;
+      });
+
+      rawHtml += `</${generateTag(field)}>`;
+    } else if (field.component == "form_field_fieldset") {
+      rawHtml += ">";
+      rawHtml += `<legend>${field.legend_text}</legend>`;
+
+      rawHtml += generateFields(field.children);
+      rawHtml += `</${generateTag(field)}>`;
+    } else if (field.component == "form_field_textarea") {
+      rawHtml += ">";
+
+      if (field.defaultValue) {
+        rawHtml += field.defaultValue;
+      }
+
+      rawHtml += `</${generateTag(field)}>`;
+    } else {
+      rawHtml += " />";
+    }
+
+    if (field.hint) {
+      rawHtml += `<span class="info text-small">${field.hint}</span>`;
+    }
+
+    rawHtml += `</div>`;
+  });
+
+  return rawHtml;
+}
+---
+
+<form class="section" name={blok.name} method="POST" data-netlify="true" {...storyblokEditable(blok)}>
+  <div
+    set:html={renderRichText(blok.headContent, {
+      schema: myRichTextSchema(),
+    })}
+  />
+
+  <Fragment set:html={generateFields(blok.children)} />
+  <div
+    set:html={renderRichText(blok.footContent, {
+      schema: myRichTextSchema(),
+    })}
+  />
+
+  <button id="submit-button">Submit</button>
+</form>
+
+<style is:inline>
+  form {
+    width: var(--max-line-length);
+  }
+
+  input,
+  textarea,
+  select {
+    color: var(--color-neutral-900);
+  }
+
+  .form-input {
+    width: 100%;
+
+    &:invalid {
+      border: 1px solid var(--color-error-500);
+    }
+
+    &:invalid::after {
+      display: block;
+      margin-left: var(--s-sm);
+      margin-top: var(--s-sm);
+      content: "You must provide a valid input.";
+      color: var(--color-error-300);
+    }
+  }
+
+  label {
+    display: block;
+    margin-left: var(--s-sm);
+    margin-bottom: var(--s-xs);
+  }
+
+  .form-input:not(fieldset) {
+    background-color: var(--color-neutral-200);
+    padding: var(--s-sm) var(--s-sm);
+    border: 1px solid var(--color-neutral-400);
+    border-radius: var(--r-xl);
+  }
+
+  fieldset.form-input {
+    padding: var(--s-2xl) var(--s-md);
+    border: 1px solid var(--color-neutral-400);
+    border-radius: var(--r-xl);
+
+    legend {
+      padding: 0 var(--s-xs);
+    }
+
+    & > .field:nth-child(2) {
+      margin-top: calc(var(--s-md) * -1);
+    }
+  }
+
+  .field + .field {
+    margin-top: var(--s-md);
+  }
+
+  .required-token {
+    color: var(--color-neutral-500);
+  }
+
+  .info {
+    display: block;
+    margin-left: var(--s-sm);
+    margin-top: var(--s-xs);
+  }
+
+  #submit-button {
+    width: fit-content;
+    margin-top: var(--s-xl);
+  }
+
+  input[type="file"] {
+    background-color: transparent;
+    border: none;
+
+    &::file-selector-button {
+      gap: var(--s-sm);
+
+      padding: var(--s-sm) var(--s-xl);
+      margin-right: var(--s-md);
+
+      border: unset;
+      background-color: var(--color-neutral-800);
+      color: var(--color-neutral-100);
+
+      text-decoration: none;
+
+      border-radius: var(--r-4xl);
+
+      &:hover {
+        background-color: var(--color-neutral-700);
+      }
+
+      &:active {
+        scale: 0.94;
+      }
+
+      transition-property: all;
+      transition-timing-function: var(--a-easeOut);
+      transition-duration: var(--a-duration-fast);
+    }
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    /*
+        Nice tool to convert SVG to data URI:
+          https://www.svgbackgrounds.com/tools/svg-to-css/
+    */
+    /* HeroIcons
+    *   - URL: https://heroicons.com/
+    *   - Source Code: https://github.com/tailwindlabs/heroicons
+    *   - License: MIT
+    */    
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="%23f0f3ff"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right var(--s-sm) top 50%;
+    background-size: var(--s-md) auto;
+  }
+</style>
