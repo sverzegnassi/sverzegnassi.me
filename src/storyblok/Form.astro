@@ -110,7 +110,13 @@ function generateFields(fields: any[]) {
   let rawHtml = "";
 
   fields.map((field: any) => {
-    rawHtml += `<div class="field">`;
+    rawHtml += `<div class="field`;
+
+    if (field.component == "form_field_checkbox" || field.component == "form_field_radio") {
+      rawHtml += ` check-or-radio `;
+    }
+
+    rawHtml += `">`;
 
     if (field.component != "form_field_fieldset") {
       rawHtml += generateLabel(field);
@@ -283,7 +289,6 @@ function generateFields(fields: any[]) {
 
   select {
     appearance: none;
-    -webkit-appearance: none;
 
     /*
         Nice tool to convert SVG to data URI:
@@ -293,10 +298,56 @@ function generateFields(fields: any[]) {
     *   - URL: https://heroicons.com/
     *   - Source Code: https://github.com/tailwindlabs/heroicons
     *   - License: MIT
-    */    
+    */
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="%23f0f3ff"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>');
     background-repeat: no-repeat;
     background-position: right var(--s-sm) top 50%;
     background-size: var(--s-md) auto;
+  }
+
+  .field.check-or-radio {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+
+    & > * {
+      margin-bottom: 0;
+      line-height: calc(1rem + var(--s-xs) * 2);
+    }
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    appearance: none;
+    padding: var(--s-xs);
+    display: grid;
+    position: relative;
+    width: calc(1rem + var(--s-xs) * 2);
+    height: calc(1rem + var(--s-xs) * 2);
+    place-content: center;
+
+    &:checked::before {
+      font-size: 1rem;
+      color: var(--color-neutral-800);
+    }
+  }
+
+  input[type="radio"] {
+    border-radius: 50%;
+
+    &:checked::before {
+      content: "";
+      width: .66rem;
+      height: .66rem;
+      border-radius: 50%;
+      background-color: var(--color-neutral-800);
+    }
+  }
+  input[type="checkbox"] {
+    border-radius: var(--r-md);
+    
+    &:checked::before {
+      content: "✔";
+    }
   }
 </style>
