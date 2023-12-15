@@ -409,4 +409,14 @@ function generateFields(fields: any[]) {
       z-index: 1000;
     }
   }
+
+  input::-webkit-calendar-picker-indicator {
+    /*
+      Reference:
+        - https://stackoverflow.com/questions/7415872/change-color-of-png-image-via-css/50942954#50942954
+        - https://codepen.io/sosuke/pen/Pjoqqp
+    */
+    filter: invert(91%) sepia(4%) saturate(1190%) hue-rotate(189deg) brightness(95%) contrast(86%);
+  }
+
 </style>
