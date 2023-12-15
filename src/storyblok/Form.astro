@@ -164,6 +164,10 @@ function generateFields(fields: any[]) {
       rawHtml += " />";
     }
 
+    if (field.component != "form_field_fieldset") {
+      rawHtml += `<div class="info invalid text-small" aria-live="assertive">⚠️ You must provide a valid input for "${field.label}".</div>`;
+    }
+
     if (field.component == "form_field_range") {
       rawHtml += `<div class="info text-small">Current value: <strong x-text="currentValue"></strong></div>`;
     }
@@ -205,22 +209,6 @@ function generateFields(fields: any[]) {
   textarea,
   select {
     color: var(--color-neutral-900);
-  }
-
-  .form-input {
-    width: 100%;
-
-    &:invalid {
-      border: 1px solid var(--color-error-500);
-    }
-
-    &:invalid::after {
-      display: block;
-      margin-left: var(--s-sm);
-      margin-top: var(--s-sm);
-      content: "You must provide a valid input.";
-      color: var(--color-error-300);
-    }
   }
 
   label {
@@ -420,6 +408,24 @@ function generateFields(fields: any[]) {
   input[type=number]::-webkit-inner-spin-button {
     filter: invert(91%) sepia(4%) saturate(1190%) hue-rotate(189deg) brightness(95%) contrast(86%);
     margin: calc(var(--s-xs) * -1) 0;
+  }
+
+  .form-input {
+    width: 100%;
+
+    &:invalid {
+      border: 1px solid var(--color-error-500);
+    }
+  }
+
+  .info.invalid {
+    display: none;
+  }
+
+  .form-input:invalid + .info.invalid {
+      display: block;
+      margin-left: var(--s-sm);
+      margin-top: var(--s-sm);    
   }
 
 </style>
