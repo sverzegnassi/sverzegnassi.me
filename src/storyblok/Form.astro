@@ -274,8 +274,6 @@ function generateFields(fields: any[]) {
     border: none;
 
     &::file-selector-button {
-      gap: var(--s-sm);
-
       padding: var(--s-sm) var(--s-xl);
       margin-right: var(--s-md);
 
@@ -417,6 +415,11 @@ function generateFields(fields: any[]) {
         - https://codepen.io/sosuke/pen/Pjoqqp
     */
     filter: invert(91%) sepia(4%) saturate(1190%) hue-rotate(189deg) brightness(95%) contrast(86%);
+  }
+
+  input[type=number]::-webkit-inner-spin-button {
+    filter: invert(91%) sepia(4%) saturate(1190%) hue-rotate(189deg) brightness(95%) contrast(86%);
+    margin: calc(var(--s-xs) * -1) 0;
   }
 
 </style>
