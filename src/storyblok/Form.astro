@@ -116,7 +116,13 @@ function generateFields(fields: any[]) {
       rawHtml += ` check-or-radio `;
     }
 
-    rawHtml += `">`;
+    rawHtml += `"`;
+
+    if (field.component == "form_field_range") {
+      rawHtml += ` x-data="{ currentValue: '' }" `;
+    }
+
+    rawHtml += `>`;
 
     if (field.component != "form_field_fieldset") {
       rawHtml += generateLabel(field);
@@ -126,6 +132,10 @@ function generateFields(fields: any[]) {
 
     if (field.component != "form_field_fieldset") {
       rawHtml += parseAttributes(field);
+    }
+
+    if (field.component == "form_field_range") {
+      rawHtml += ` x-model.fill="currentValue" `;
     }
 
     if (field.component == "form_field_select") {
@@ -152,6 +162,10 @@ function generateFields(fields: any[]) {
       rawHtml += `</${generateTag(field)}>`;
     } else {
       rawHtml += " />";
+    }
+
+    if (field.component == "form_field_range") {
+      rawHtml += `<div class="info text-small">Current value: <strong x-text="currentValue"></strong></div>`;
     }
 
     if (field.hint) {
@@ -337,17 +351,62 @@ function generateFields(fields: any[]) {
 
     &:checked::before {
       content: "";
-      width: .66rem;
-      height: .66rem;
+      width: 0.66rem;
+      height: 0.66rem;
       border-radius: 50%;
       background-color: var(--color-neutral-800);
     }
   }
   input[type="checkbox"] {
     border-radius: var(--r-md);
-    
+
     &:checked::before {
       content: "✔";
+    }
+  }
+
+  /*** https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ ***/
+  input[type="range"] {
+    appearance: none;
+    cursor: pointer;
+    padding: 0;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      margin-top: -12px; /* Centers thumb on the track */
+      background-color: var(--color-neutral-800);
+      height: 2rem;
+      width: 1rem;
+      border-radius: var(--r-sm);
+    }
+
+    &::-moz-range-thumb {
+      border: none; /*Removes extra border that FF applies*/
+      background-color: var(--color-neutral-800);
+      height: 2rem;
+      width: 1rem;
+      border-radius: var(--r-sm);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus::-webkit-slider-thumb {
+      outline-color: var(--color-neutral-500);
+      outline-width: 3px;
+      outline-offset: 3px;
+      outline-style: solid;
+      z-index: 1000;
+    }
+
+    &:focus::-moz-range-thumb {
+      outline-color: var(--color-neutral-500);
+      outline-width: 3px;
+      outline-offset: 3px;
+      outline-style: solid;
+      z-index: 1000;
     }
   }
 </style>
