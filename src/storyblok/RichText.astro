@@ -11,7 +11,7 @@ const renderedRichText = renderRichText(blok.content, {
 
 <div class="rich-text" set:html={renderedRichText} {...storyblokEditable(blok)} />
 
-<style is:inline>
+<style is:global>
   .rich-text {
     max-width: var(--max-line-length);
   }

@@ -84,6 +84,7 @@ const { blok } = Astro.props;
 
     & > .header-links {
       display: flex;
+      align-items: center;
       column-gap: var(--s-md);
     }
   }
@@ -136,9 +137,7 @@ const { blok } = Astro.props;
       padding-right: var(--s-sm) !important;
     }
   }
-</style>
 
-<style is:inline>
   @media (width < 991px) {
     /* WORKAROUND: This needs to stay inline, since <LinkResolver /> is an
     Astro component, and it doesn't get parsed properly
@@ -146,7 +145,8 @@ const { blok } = Astro.props;
 
     .header-links {
       flex-direction: column;
-      row-gap: 0.5rem;
+      align-items: initial !important;
+      row-gap: var(--s-md);
 
       & > .button {
         justify-content: flex-start;
