@@ -162,6 +162,28 @@ a {
   }
 }
 
+blockquote {
+  border-left: 2px solid var(--color-neutral-500);
+  padding: var(--s-xs) var(--s-md);
+  margin-left: var(--s-sm);
+  background-color: var(--color-neutral-200);
+  position: relative;
+
+  &::after {
+    content: "”";
+
+    position: absolute;
+    bottom: -4rem;
+    right: -1rem;
+   
+    font-size: 6rem;
+    line-height: 6rem;
+    font-family: "IBM Plex Mono";
+    color: var(--color-neutral-500);
+    opacity: 0.85;
+  }
+}
+
 /** CODE **/
 code, kbd, samp, pre {
   font-family: "IBM Plex Mono";
