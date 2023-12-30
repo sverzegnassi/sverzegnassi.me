@@ -28,7 +28,7 @@ const { blok } = Astro.props;
         }
       </div>
       {
-        blok.cover_image.filename && (
+        blok.cover_image?.filename && (
           <div class="cover-image">
             <StoryblokImage
               url={blok.cover_image.filename}
