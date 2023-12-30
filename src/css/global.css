@@ -259,6 +259,10 @@ b, strong {
   font-weight: bold;
 }
 
+figure > figcaption {
+  margin-top: var(--s-sm);
+}
+
 /*** LAYOUT ***/
 section,
 .section {
