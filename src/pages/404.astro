@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../storyblok/Hero.astro";
+---
+
+<BaseLayout>
+  <Hero
+    blok={{
+      title: "Page Not found",
+      tagline: "Error 404",
+      links: [
+        {
+          title: "Return to the Home Page",
+          link: {
+            linktype: "story",
+            story: {
+              full_slug: "/",
+            },
+          },
+        },
+      ],
+    }}
+  />
+</BaseLayout>
