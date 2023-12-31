@@ -1,0 +1,67 @@
+---
+const { blok } = Astro.props;
+
+import { storyblokEditable, useStoryblokApi } from "@storyblok/astro";
+import Badge from "../components/Badge.astro";
+
+// https://www.storyblok.com/docs/api/content-delivery/v2#filter-queries/overview
+// https://stackoverflow.com/questions/76393228/filter-query-with-storyblok
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get(`cdn/stories/`, {
+  version: "draft",
+  per_page: blok.max_count,
+  content_type: "technologies",
+  is_startpage: false,
+  filter_query: {
+    categories: { is: blok.categories.join(",") },
+  },
+});
+
+const datasource = await storyblokApi.get(`cdn/datasource_entries/`, {
+  datasource: "technology-categories",
+});
+
+const entries = data.stories;
+const categoriesData = datasource.data.datasource_entries;
+---
+
+<div {...storyblokEditable(blok)}>
+  {blok.title && <h2>{blok.title}</h2>}
+  {blok.caption && <p>{blok.caption}</p>}
+  {
+    blok.categories.map((category: string) => (
+      <div class="category">
+        <div class="category-head">{categoriesData.find((e: any) => e.value === category).name}</div>
+        <div class="badge--wrapper">
+          {entries
+            .filter((e: any) => e.content.categories.includes(category))
+            .map((e: any) => (
+              <Badge name={e.content.name} image={e.content.logo.filename} />
+            ))}
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  h2 {
+    margin-bottom: 0;
+  }
+
+  .category {
+    padding: var(--s-sm) 0;
+
+    & > .category-head {
+      font-weight: 600;
+      padding: var(--s-xs) 0;
+    }
+  }
+
+  .badge--wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-sm);
+  }
+</style>
