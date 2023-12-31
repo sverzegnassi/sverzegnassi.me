@@ -259,6 +259,11 @@ b, strong {
   font-weight: bold;
 }
 
+figure {
+  margin-top: var(--s-3xl);
+  margin-bottom: var(--s-3xl);
+}
+
 figure > figcaption {
   margin-top: var(--s-sm);
 }
