@@ -6,17 +6,17 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
 
-  const { data } = await sbApi.get("cdn/stories", {
+  const data = await sbApi.getAll("cdn/links", {
     version: import.meta.env.DEV ? "draft" : "published",
-    excluding_slugs: "technologies-used/*,config",
+    excluding_slugs: "config",
   });
 
-  let stories = Object.values(data.stories);
-
-  return stories.map((story: any) => {
+  return data.map((link: any) => {
     return {
-      params: { slug: story.full_slug === "home" ? undefined : story.full_slug },
-    };
+      params: {
+        slug: link.slug === 'home' ? undefined : link.slug,
+      },
+    }
   });
 }
 
