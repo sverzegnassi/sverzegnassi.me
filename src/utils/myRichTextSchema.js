@@ -59,19 +59,6 @@ export function myRichTextSchema() {
       delete attrs.custom;
     }
 
-    // Default Storyblok schema seems to forget about these
-    if (attrs.linktype) {
-      delete attrs.linktype;
-    }
-
-    if (attrs.story) {
-      delete attrs.story;
-    }
-
-    if (attrs.uuid) {
-      delete attrs.uuid;
-    }
-
     return {
       tag: [
         {
