@@ -6,6 +6,7 @@ import { useStoryblokApi } from "@storyblok/astro";
 
 import SectionHeader from "../components/SectionHeader.astro";
 import ArticleCardGrid from "../components/ArticleCardGrid.astro";
+import ArticleCard from "../components/ArticleCard.astro";
 
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get(`cdn/stories/`, {
@@ -26,7 +27,21 @@ const entries = data.stories;
   <div class="full-width">
     {blok.title && <SectionHeader title={blok.title} subtitle={blok.subtitle} />}
 
-    <ArticleCardGrid entriesList={entries} linkTextDefault={blok.link_text} />
+    <ArticleCardGrid>
+      {
+        entries.map((item: any) => (
+          <ArticleCard
+            coverImageUrl={item.content?.card_foreground?.filename || item.content?.cover_image?.filename}
+            coverImageAlt={item.content?.card_foreground?.alt || item.content?.cover_image?.alt}
+            coverImageBackground={item.content?.card_background?.filename}
+            title={item.content?.title}
+            description={item.content?.excerpt}
+            linkHref={`/${item.full_slug}`}
+            linkText={blok.link_text}
+          />
+        ))
+      }
+    </ArticleCardGrid>
   </div>
 </section>
 

@@ -1,37 +1,8 @@
 ---
-import ArticleCard from "./ArticleCard.astro";
-interface Props {
-  entriesList: {
-    content: {
-      card_background: { filename: string | undefined; alt: string | undefined };
-      card_foreground: { filename: string | undefined; alt: string | undefined };
-      cover_image: { filename: string | undefined; alt: string | undefined };
-      title: string;
-      excerpt: string | undefined;
-    };
-    full_slug: string | undefined;
-  }[];
-
-  linkTextDefault: string;
-}
-
-const { entriesList, linkTextDefault } = Astro.props;
 ---
 
 <div class="collection-grid">
-  {
-    entriesList.map((entry) => (
-      <ArticleCard
-        coverImageUrl={entry.content?.card_foreground?.filename || entry.content?.cover_image?.filename}
-        coverImageAlt={entry.content?.card_foreground?.alt || entry.content?.cover_image?.alt}
-        coverImageBackground={entry.content?.card_background?.filename}
-        title={entry.content?.title}
-        description={entry.content?.excerpt}
-        linkHref={`/${entry.full_slug}`}
-        linkText={linkTextDefault}
-      />
-    ))
-  }
+  <slot />
 </div>
 
 <style>

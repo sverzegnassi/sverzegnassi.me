@@ -4,12 +4,27 @@ const { blok } = Astro.props;
 import { storyblokEditable } from "@storyblok/astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import ArticleCardGrid from "../components/ArticleCardGrid.astro";
+import ArticleCard from "../components/ArticleCard.astro";
 ---
 
 <section class="not-prose" {...storyblokEditable(blok)}>
   <div class="full-width">
     {blok.title && <SectionHeader title={blok.title} subtitle={blok.subtitle} />}
 
-    <ArticleCardGrid entriesList={blok.items} linkTextDefault={blok.link_text} />
+    <ArticleCardGrid>
+      {
+        blok.items.map((item: any) => (
+          <ArticleCard
+            coverImageUrl={item.content?.card_foreground?.filename || item.content?.cover_image?.filename}
+            coverImageAlt={item.content?.card_foreground?.alt || item.content?.cover_image?.alt}
+            coverImageBackground={item.content?.card_background?.filename}
+            title={item.content?.title}
+            description={item.content?.excerpt}
+            linkHref={`/${item.full_slug}`}
+            linkText={blok.link_text}
+          />
+        ))
+      }
+    </ArticleCardGrid>
   </div>
 </section>
