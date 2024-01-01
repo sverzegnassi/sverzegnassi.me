@@ -1,16 +1,7 @@
 import { RichTextSchema } from "@storyblok/astro";
-import cloneDeep from "clone-deep";
 import { generateHeadingId } from "./storyblokUtils";
 import { imageDimensions } from "./storyblokUtils";
-
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+import { escape, cloneDeep } from 'lodash';
 
 export function myRichTextSchema() {
   // Customize default Storyblok Rich text schema
@@ -43,7 +34,7 @@ export function myRichTextSchema() {
     delete attrs.linktype;
 
     if (attrs.href) {
-      attrs.href = escapeHtml(node.attrs.href || "");
+      attrs.href = escape(node.attrs.href || "");
     }
 
     if (linktype === "email") {
