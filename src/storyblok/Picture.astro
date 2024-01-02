@@ -3,8 +3,6 @@ import { storyblokEditable } from "@storyblok/astro";
 import StoryblokImage from "../components/StoryblokImage.astro";
 
 const { blok } = Astro.props;
-
-console.log(JSON.stringify(blok.picture));
 ---
 
 <div class:list={["picture-wrapper", blok.containerWidth]}>
