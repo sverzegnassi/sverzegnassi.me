@@ -11,7 +11,12 @@ export async function getStaticPaths() {
     excluding_slugs: "technologies-used/*,config",
   });
 
-  return data.map((link: any) => {
+  // WORKAROUND: Unsure why Storyblok keep returning "tecnologies-used/index.html"
+  // after it has been moved. I need a fast solution for the time being, will
+  // investigate later.
+  const links = data.filter(link => !link.slug.startsWith("technologies-used"))
+
+  return links.map((link: any) => {
     return {
       params: {
         slug: link.slug === 'home' ? undefined : link.slug,
