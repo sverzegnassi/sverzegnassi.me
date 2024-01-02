@@ -118,13 +118,8 @@ const navbarLinks = data?.story?.content?.navbar_links;
     z-index: 100;
 
     flex-direction: column;
-    justify-content: center;
-    
-    /* WORKAROUND: Make it scroll horizontally for now.
-    A lot of things have been already refactored. */
-    flex-wrap: wrap;
 
-    top: var(--s-3xl);
+    top: calc(var(--s-3xl) + var(--s-sm));
     left: 0;
     right: 0;
 
@@ -139,8 +134,8 @@ const navbarLinks = data?.story?.content?.navbar_links;
     overflow: auto;
 
     padding: 0;
+    padding-top: 13dvh;
 
-    /* Optical center the content, taking in account navbar height  */
     box-sizing: border-box;
     border-bottom: calc(var(--s-3xl) + var(--s-xs)) solid transparent;
 
@@ -149,12 +144,18 @@ const navbarLinks = data?.story?.content?.navbar_links;
       font-size: 1.52em;
       list-style-type: none;
       padding: 1rem;
+      
+      opacity: 0;
+      transition: opacity var(--a-duration-slow) linear;
     }
 
     &.open {
-      height: calc(100dvh - var(--s-3xl));  /* Match navbar height */
+      min-height: calc(100dvh - var(--s-3xl) - var(--s-sm));  /* Match navbar height */
       visibility: visible;
-      transition-duration: var(--a-duration-brisk);
+
+      & > li {
+        opacity: 1;
+      }
     }
   }
 
