@@ -3,14 +3,30 @@ import { storyblokEditable } from "@storyblok/astro";
 import StoryblokImage from "../components/StoryblokImage.astro";
 
 const { blok } = Astro.props;
+
+console.log(JSON.stringify(blok.picture));
 ---
 
-<StoryblokImage
-  url={ blok.picture.filename }
-  alt={ blok.picture.alt }
-  caption={ blok.picture.caption }
-  lazyload={ true }
+<div class:list={["picture-wrapper", blok.containerWidth]}>
+  <StoryblokImage
+    url={blok.picture.filename}
+    alt={blok.picture.alt}
+    caption={blok.picture.title}
+    lazyload={true}
+    {...storyblokEditable(blok)}
+  />
+</div>
 
-  {...storyblokEditable(blok)}
-/>
-  
+<style>
+  .picture-wrapper {
+    margin: 0 auto;
+
+    &.w-half {
+      max-width: 50%;  
+    }
+
+    &.w-prose {
+      max-width: var(--max-line-length);
+    }
+  }
+</style>
