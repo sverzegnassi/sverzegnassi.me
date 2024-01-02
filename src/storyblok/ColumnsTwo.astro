@@ -5,8 +5,8 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 const { blok } = Astro.props;
 ---
 
-<section {...storyblokEditable(blok)}>
-  <div class="columns--two" class:list={blok.is_full_width && ["full-width"]}>
+<section {...storyblokEditable(blok)} class:list={[ blok.backgroundColor ]}>
+  <div class="columns--two" class:list={[ blok.is_full_width && ["full-width"] ]}>
     <div>
       {
         blok.column_left?.map((blok: any) => {
@@ -25,6 +25,10 @@ const { blok } = Astro.props;
 </section>
 
 <style>
+  .secondary {
+    background-color: var(--color-neutral-200);
+  }
+
   .columns--two {
     display: grid;
     grid-template-columns: 1fr 1fr;
