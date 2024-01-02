@@ -11,9 +11,11 @@ const { data } = await storyblokApi.get("cdn/stories/config", {
 const copyrightNotice = data?.story?.content?.copyright_notice
 const footerLinks = data?.story?.content?.footer_links;
 const sourceCodeLink = data?.story?.content?.source_code_link[0]
+
+const { ...attrs } = Astro.props
 ---
 
-<footer class="section">
+<footer {...attrs} class="section">
   <div class="full-width">
     <div class="main">
       <div set:html={copyrightNotice}>

@@ -1,8 +1,10 @@
 ---
 let urlParts = Astro.url.pathname.split("/").filter(s => s)
+
+const { ...attrs } = Astro.props
 ---
 
-<a class="offscreen-shortcut" href="#main-content">Skip to main content</a>
+<a {...attrs} class="offscreen-shortcut" href="#main-content">Skip to main content</a>
 {
     (urlParts.shift() == "posts" && urlParts.length > 0) &&
     <a class="offscreen-shortcut" href="#article-start">Start reading the article</a>

@@ -31,14 +31,24 @@ const coverImage = story?.content?.cover_image?.filename;
       image={coverImage}
     />
   </head>
-  <body x-data="{ navbarOpen: false }" :style="navbarOpen && 'overflow: hidden;'">
-    <KeyboardShortcuts />
+  <body>
+    <KeyboardShortcuts id="kbd-shortcuts" />
     <Navigation />
-    <main id="main-content" :style="navbarOpen && 'visibility: hidden'">
+    <main id="main-content">
       <slot />
     </main>
-    <div :style="navbarOpen && 'visibility: hidden'">
-      <Footer />
-    </div>
+    <Footer id="footer" />
   </body>
 </html>
+
+<style>
+  body:has(.navbar-menu[open]) {
+    overflow: hidden;
+
+    #kbd-shortcuts,
+    #main-content,
+    #footer {
+      visibility: hidden;
+    }
+  }
+</style>
