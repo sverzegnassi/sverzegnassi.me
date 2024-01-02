@@ -8,7 +8,7 @@ export async function getStaticPaths() {
 
   const data = await sbApi.getAll("cdn/links", {
     version: import.meta.env.DEV ? "draft" : "published",
-    excluding_slugs: "config",
+    excluding_slugs: "technologies-used/*,config",
   });
 
   return data.map((link: any) => {
