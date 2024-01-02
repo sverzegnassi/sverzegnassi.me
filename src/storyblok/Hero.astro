@@ -53,6 +53,8 @@ const { blok } = Astro.props;
   }
 
   .hero-links {
+    display: flex;
+    gap: var(--s-xl);
     margin-top: var(--s-xl);
   }
 
@@ -65,7 +67,7 @@ const { blok } = Astro.props;
 <script is:inline src="/gsap/minified/gsap.min.js" defer></script>
 <script is:inline defer>
   window.addEventListener("load", () => {
-    let mm = gsap.matchMedia()
+    let mm = gsap.matchMedia();
     let slowDuration = gsap.getProperty("html", "--a-gsap-slow");
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -73,7 +75,11 @@ const { blok } = Astro.props;
       tl.from(".hero-title", { opacity: 0, translateX: -100, ease: "circ.out", duration: slowDuration });
       tl.from(".hero-tag", { opacity: 0, translateX: -50, ease: "circ.out", duration: slowDuration });
       tl.from(".hero-links", { opacity: 0, ease: "circ.out", duration: slowDuration });
-      tl.fromTo(".caret", { opacity: 0 }, { opacity: 1, duration: slowDuration, ease: "expo.inOut", repeat: -1, yoyo: true });
+      tl.fromTo(
+        ".caret",
+        { opacity: 0 },
+        { opacity: 1, duration: slowDuration, ease: "expo.inOut", repeat: -1, yoyo: true },
+      );
     });
   });
 </script>

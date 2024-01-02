@@ -49,7 +49,10 @@ export function myRichTextSchema() {
     if (linktype === "url") {
       attrs["ref"] = "noopener nofollow";
       attrs["target"] = "_blank";
-      attrs["class"] = "link--ext";
+
+      if (attrs.href.startsWith("http")) {
+        attrs["class"] = "link--ext";
+      }
     }
 
     if (attrs.custom) {

@@ -4,6 +4,9 @@ interface Props {
 }
 
 const { linkBlock } = Astro.props;
+
+// TODO: The workaround messes up with project buttons
+// TODO: button when hovered has invisible text
 ---
 
 {
@@ -45,7 +48,9 @@ const { linkBlock } = Astro.props;
             aria-label={link["aria-label"] || `${linkBlock.title} (external link: opens in a new window)`}
           >
             {linkBlock.title}
-            <Fragment set:html={heroIcon} />
+            { linkBlock.link.url.toString().startsWith("http") &&
+              <Fragment set:html={heroIcon} />
+            }
           </a>
         );
       case "email":
