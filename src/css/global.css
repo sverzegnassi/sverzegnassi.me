@@ -146,6 +146,7 @@ a {
     text-decoration-color: var(--color-linkVisited-900);
   }
 
+  /* TODO: Improve this rule */
   /* Style for icons inside <a> */
   /*
       WORKAROUND: Center to the baseline
