@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash';
+import _ from 'lodash';
 
 export function withWebpSupport(url) {
   if (!url.endsWith("/m/")) {
@@ -22,7 +22,5 @@ export function generateHeadingId(heading) {
 
   const text = heading.content.map((part) => part.text || "").join("");
 
-  // https://byby.dev/js-slugify-string
-  // TODO: Use lodash where suitable, across whole project
-  return camelCase(text);
+  return _.camelCase(text);
 }
