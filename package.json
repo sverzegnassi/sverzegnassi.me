@@ -15,7 +15,7 @@
     "@astrojs/sitemap": "^3.0.4",
     "@fontsource-variable/public-sans": "^5.0.16",
     "@fontsource/ibm-plex-mono": "^5.0.8",
-    "@storyblok/astro": "^3.0.1",
+    "@storyblok/astro": "^3.1.0-next.3",
     "@types/alpinejs": "^3.13.5",
     "alpinejs": "^3.13.3",
     "astro": "^4.0.8",
