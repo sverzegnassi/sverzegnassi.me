@@ -1,6 +1,7 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import LinkResolver from "../components/LinkResolver.astro";
+import RichText from "./RichText.astro";
 
 const { blok } = Astro.props;
 ---
@@ -10,7 +11,9 @@ const { blok } = Astro.props;
     <h1 class="hero-title">
       {blok.title}<span class="caret" aria-hidden="true">_</span>
     </h1>
-    <p class="hero-tag">{blok.tagline}</p>
+    <div class="hero-tag">
+      <Fragment set:html={blok.tagline} />
+    </div>
 
     {
       blok.links && (
