@@ -42,7 +42,7 @@ const coverImage = story?.content?.cover_image?.filename;
 </html>
 
 <style>
-  body:has(.navbar-menu[open]) {
+  body:has(.navbar[aria-expanded=true]) {
     overflow: hidden;
 
     #kbd-shortcuts,
