@@ -1,0 +1,68 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokImage, { imageDimensions }  from "../components/StoryblokImage.astro";
+
+const { blok } = Astro.props;
+---
+
+<!-- TODO: Use CSS grid mansonry support when supported -->
+<div class:list={["section", blok.backgroundColor]} {...storyblokEditable}>
+  <div class="mansonry">
+    {
+      blok.items &&
+        blok.items.map((item: any) => (
+          <StoryblokImage
+            class:list={[imageDimensions(item.filename).width > imageDimensions(item.filename).height && "wide"]}
+            url={item.filename}
+            alt={item.alt}
+            caption={item.title}
+            lazyload={true}
+            {...storyblokEditable(blok)}
+          />
+        ))
+    }
+  </div>
+</div>
+
+<style>
+  .secondary {
+    background-color: var(--color-neutral-200);
+  }
+
+  .mansonry {
+    column-count: 4;
+    column-gap: var(--s-md);
+    break-inside: avoid;
+  }
+
+  .mansonry > :global(*) {
+    display: inline-block;
+    margin-top: var(--s-xl);
+    margin-bottom: var(--s-xl);
+
+    &.wide {
+      column-span: all;
+      display: block;
+    }
+  }
+
+  /* Values from Webflow */
+  /* Tablet: < 991px; Mobile landscape: < 767px; mobile portrait < 478px */
+  @media (width < 991px) {
+    .mansonry {
+      column-count: 3;
+    }
+  }
+
+  @media (width < 767px) {
+    .mansonry {
+      column-count: 2;
+    }
+  }
+
+  @media (width < 478px) {
+    .mansonry {
+      column-count: 1;
+    }
+  }
+</style>

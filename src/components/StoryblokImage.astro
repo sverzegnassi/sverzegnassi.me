@@ -1,5 +1,7 @@
 ---
-interface Props {
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'picture'> {
   url: string;
   alt?: string;
   caption?: string;
@@ -17,14 +19,15 @@ type Dimensions = {
 };
 
 // Ref. https://www.storyblok.com/faq/image-dimensions-assets-js
-function imageDimensions(url: string): Dimensions {
+export function imageDimensions(url: string): Dimensions {
   return {
     width: Number(url.split("/")[5].split("x")[0]),
     height: Number(url.split("/")[5].split("x")[1]),
   };
 }
 
-const { url, alt, caption, lazyload, isSvg = false, maxWidth, fitCover } = Astro.props;
+const { url, alt, caption, lazyload, isSvg = false, maxWidth, fitCover, ...attributes } = Astro.props;
+const attrs: Record<string, any> = attributes;
 
 function displayDimensions({ width, height }: Dimensions) {
   const newWidth = maxWidth || width;
@@ -39,7 +42,7 @@ const imageSize = imageDimensions(url);
 const displaySize = displayDimensions(imageSize);
 ---
 
-<picture>
+<picture {...attrs}>
   {
     !isSvg && (
       <source type="image/webp" srcset={`${url}/m/${displaySize.width}x${displaySize.height}/filters:format(webp)`} />
