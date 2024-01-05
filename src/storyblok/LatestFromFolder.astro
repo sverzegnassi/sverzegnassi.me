@@ -18,7 +18,10 @@ const { data } = await storyblokApi.get(`cdn/stories/`, {
   by_uuids: blok.by_uuids,
   starts_with: blok.starts_with,
   is_startpage: !blok.exclude_startpage,
+  sort_by: "first_published_at:desc"
 });
+
+console.log(data.stories)
 
 const entries = data.stories;
 ---
