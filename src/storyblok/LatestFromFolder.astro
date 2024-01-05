@@ -21,8 +21,6 @@ const { data } = await storyblokApi.get(`cdn/stories/`, {
   sort_by: "first_published_at:desc"
 });
 
-console.log(data.stories)
-
 const entries = data.stories;
 ---
 
